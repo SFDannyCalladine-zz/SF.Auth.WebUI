@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SF.Auth.DataAccess;
-using SF.Auth.Development;
 using SF.Auth.Repositories;
 using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services;
@@ -42,7 +41,7 @@ namespace SF.Auth.WebUI
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
@@ -53,7 +52,7 @@ namespace SF.Auth.WebUI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}");
             });
         }
 
@@ -90,7 +89,6 @@ namespace SF.Auth.WebUI
 
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(Config.GetUsers())
                 .AddConfigurationStore(options =>
                     options.ConfigureDbContext = builder =>
                         builder.UseSqlServer(identityConnectionString, ssOptions =>
