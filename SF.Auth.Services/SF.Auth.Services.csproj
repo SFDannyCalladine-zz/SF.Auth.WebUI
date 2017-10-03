@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SF.Auth.DataTransferObjects\SF.Auth.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\SF.Auth.Repositories\SF.Auth.Repositories.csproj" />
+    <ProjectReference Include="..\SF.Common.Security\SF.Common.Security.csproj" />
+    <ProjectReference Include="..\SF.Common.ServiceModels\SF.Common.ServiceModels.csproj" />
+    <ProjectReference Include="..\SF.Common.Services\SF.Common.Services.csproj" />
+    <ProjectReference Include="..\SF.Common.Settings\SF.Common.Settings.csproj" />
+  </ItemGroup>
+
+</Project>
