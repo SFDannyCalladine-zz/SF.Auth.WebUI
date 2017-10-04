@@ -6,6 +6,8 @@ namespace SF.Auth.WebUI.Controllers
     [SecurityHeaders]
     public class BaseController : Controller
     {
-        public BaseController() { }
+        public BaseController()
+        {
+        }
     }
 }

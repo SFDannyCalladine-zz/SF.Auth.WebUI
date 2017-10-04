@@ -6,16 +6,18 @@ namespace SF.Auth.WebUI.Models.Account
     public class LoginViewModel
     {
         [Required]
-        [DisplayName("Username")]
-        public string Username { get; set; }
-
-        [Required]
         [DisplayName("Password")]
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; }
 
-        public LoginViewModel() { }
+        [Required]
+        [DisplayName("Username")]
+        public string Username { get; set; }
+
+        public LoginViewModel()
+        {
+        }
 
         public LoginViewModel(string returnUrl)
         {

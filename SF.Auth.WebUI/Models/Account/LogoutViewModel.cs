@@ -4,16 +4,13 @@
     {
         public string LogoutId { get; set; }
 
-        public bool ShowLogoutPrompt { get; private set; }
+        public LogoutViewModel()
+        {
+        }
 
-        public LogoutViewModel() { }
-
-        public LogoutViewModel(
-            string logoutId,
-            bool showLogoutPrompt)
+        public LogoutViewModel(string logoutId)
         {
             LogoutId = logoutId;
-            ShowLogoutPrompt = showLogoutPrompt;
         }
     }
 }

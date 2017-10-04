@@ -31,22 +31,12 @@ namespace SF.Auth.WebUI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                //app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
+            loggerFactory.AddConsole(LogLevel.Debug);
+            app.UseDeveloperExceptionPage();
 
             app.UseIdentityServer();
+
+            app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
@@ -61,46 +51,25 @@ namespace SF.Auth.WebUI
         {
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-            AddIdentityServer(
-                services,
-                Configuration,
-                migrationsAssembly);
-
-            services.AddOptions();
-
-            AddServices(services);
-            AddFactories(services);
-            AddRepositories(services);
             AddDbContexts(
                 services,
                 Configuration,
                 migrationsAssembly);
+            AddRepositories(services);
+            AddServices(services);
+            AddFactories(services);
 
-            services.AddMvc();
             services.AddAutoMapper();
-        }
+            services.AddMvc();
 
-        private static void AddIdentityServer(
-            IServiceCollection services, 
-            IConfiguration configuration,
-            string migrationsAssembly)
-        {
-            var identityConnectionString = configuration.GetConnectionString("SFIdentity");
-
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddConfigurationStore(options =>
-                    options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(identityConnectionString, ssOptions =>
-                            ssOptions.MigrationsAssembly(migrationsAssembly)))
-                .AddOperationalStore(options =>
-                    options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(identityConnectionString, ssOptions =>
-                            ssOptions.MigrationsAssembly(migrationsAssembly)));
+            AddIdentityServer(
+                services,
+                Configuration,
+                migrationsAssembly);
         }
 
         private static void AddDbContexts(
-            IServiceCollection services, 
+            IServiceCollection services,
             IConfiguration configuration,
             string migrationsAssembly)
         {
@@ -119,15 +88,34 @@ namespace SF.Auth.WebUI
                     builder.MigrationsAssembly(migrationsAssembly)));
         }
 
+        private static void AddFactories(IServiceCollection services)
+        {
+            services.AddScoped<IDbCustomerDatabaseFactory, DbCustomerDatabaseFactory>();
+        }
+
+        private static void AddIdentityServer(
+                            IServiceCollection services,
+            IConfiguration configuration,
+            string migrationsAssembly)
+        {
+            var identityConnectionString = configuration.GetConnectionString("SFIdentity");
+
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddConfigurationStore(options =>
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(identityConnectionString, ssOptions =>
+                            ssOptions.MigrationsAssembly(migrationsAssembly)))
+                .AddOperationalStore(options =>
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(identityConnectionString, ssOptions =>
+                            ssOptions.MigrationsAssembly(migrationsAssembly)));
+        }
+
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddSingleton<IAuthRepository, AuthRepository>();
             services.AddSingleton<ISettingRepository, SettingRepository>();
-        }
-
-        private static void AddFactories(IServiceCollection services)
-        {
-            services.AddScoped<IDbCustomerDatabaseFactory, DbCustomerDatabaseFactory>();
         }
 
         private static void AddServices(IServiceCollection services)

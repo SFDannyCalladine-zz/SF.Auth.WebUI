@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Domain", "SF.Comm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Auth.Development", "SF.Auth.Development\SF.Auth.Development.csproj", "{26D693A9-9013-439F-A84E-96BAD3A1A675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Common.Security", "SF.Common.Security\SF.Common.Security.csproj", "{FC0B6328-08CE-48ED-850D-D0A8B96F0097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Security", "SF.Common.Security\SF.Common.Security.csproj", "{FC0B6328-08CE-48ED-850D-D0A8B96F0097}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Common.Settings", "SF.Common.Settings\SF.Common.Settings.csproj", "{D65AAB80-4793-4144-9A0B-A3BE76384772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Settings", "SF.Common.Settings\SF.Common.Settings.csproj", "{D65AAB80-4793-4144-9A0B-A3BE76384772}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Common.DataAccess", "SF.Common.DataAccess\SF.Common.DataAccess.csproj", "{4035F906-D784-48E1-A2A4-71083F08B559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.DataAccess", "SF.Common.DataAccess\SF.Common.DataAccess.csproj", "{4035F906-D784-48E1-A2A4-71083F08B559}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
