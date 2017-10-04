@@ -22,7 +22,9 @@ namespace SF.Auth.DataAccess.Mappings
                 .HasColumnName("EncryptedConnectionString")
                 .IsRequired();
 
-            builder.HasOne(x => x.Account).WithOne(x => x.Connection).HasForeignKey<Account>(x => x.ConnectionGuid);
+            builder.HasOne(x => x.Account)
+                .WithOne(x => x.Connection)
+                .HasForeignKey<Account>(x => x.ConnectionGuid);
         }
     }
 }

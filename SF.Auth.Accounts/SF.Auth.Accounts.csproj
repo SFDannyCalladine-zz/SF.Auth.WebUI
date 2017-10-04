@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SF.Common.Security\SF.Common.Security.csproj" />
+  </ItemGroup>
+
 </Project>

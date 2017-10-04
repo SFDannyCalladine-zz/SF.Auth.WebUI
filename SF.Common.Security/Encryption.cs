@@ -5,11 +5,7 @@ namespace SF.Common.Security
 {
     public class Encryption
     {
-        private readonly byte[] _encryptionKey;
-
-        private readonly string _encryptionSalt;
-
-        private readonly byte[] _encryptionVector;
+        private readonly AESEncryption _AESEncryption;
 
         public Encryption(
             string encryptionKey,
@@ -31,9 +27,12 @@ namespace SF.Common.Security
                 throw new ArgumentNullException(nameof(encryptionVector), "Encryption Vector can not be null.");
             }
 
-            _encryptionKey = Encoding.ASCII.GetBytes(encryptionKey);
-            _encryptionSalt = encryptionSalt;
-            _encryptionVector = encryptionVector;
+            var encryptionKeyArray = Encoding.ASCII.GetBytes(encryptionKey);
+
+            _AESEncryption = new AESEncryption(
+                encryptionKeyArray,
+                encryptionVector,
+                encryptionSalt);
         }
 
         public string DecryptString(string stringToDecrypt)
@@ -43,7 +42,7 @@ namespace SF.Common.Security
                 throw new ArgumentException(nameof(stringToDecrypt), "String To Decrypt can not be null, empty or whitespace.");
             }
 
-            return new AESEncryption(_encryptionKey, _encryptionVector, _encryptionSalt).Decrypt(stringToDecrypt);
+            return _AESEncryption.Decrypt(stringToDecrypt);
         }
 
         public string EncryptString(string stringToEncrypt)
@@ -53,7 +52,7 @@ namespace SF.Common.Security
                 throw new ArgumentException(nameof(stringToEncrypt), "String To Encrypt can not be null, empty or whitespace.");
             }
 
-            return new AESEncryption(_encryptionKey, _encryptionVector, _encryptionSalt).Encrypt(stringToEncrypt);
+            return _AESEncryption.Encrypt(stringToEncrypt);
         }
     }
 }

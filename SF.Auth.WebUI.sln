@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Services", "SF.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Domain", "SF.Common.Domain\SF.Common.Domain.csproj", "{A507BEFF-2B3B-4AB8-A2AB-3B6ADDD68AA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Auth.Development", "SF.Auth.Development\SF.Auth.Development.csproj", "{26D693A9-9013-439F-A84E-96BAD3A1A675}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Security", "SF.Common.Security\SF.Common.Security.csproj", "{FC0B6328-08CE-48ED-850D-D0A8B96F0097}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Settings", "SF.Common.Settings\SF.Common.Settings.csproj", "{D65AAB80-4793-4144-9A0B-A3BE76384772}"
@@ -71,10 +69,6 @@ Global
 		{A507BEFF-2B3B-4AB8-A2AB-3B6ADDD68AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A507BEFF-2B3B-4AB8-A2AB-3B6ADDD68AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A507BEFF-2B3B-4AB8-A2AB-3B6ADDD68AA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26D693A9-9013-439F-A84E-96BAD3A1A675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26D693A9-9013-439F-A84E-96BAD3A1A675}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26D693A9-9013-439F-A84E-96BAD3A1A675}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26D693A9-9013-439F-A84E-96BAD3A1A675}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC0B6328-08CE-48ED-850D-D0A8B96F0097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC0B6328-08CE-48ED-850D-D0A8B96F0097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC0B6328-08CE-48ED-850D-D0A8B96F0097}.Release|Any CPU.ActiveCfg = Release|Any CPU

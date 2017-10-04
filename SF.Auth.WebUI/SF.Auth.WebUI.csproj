@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SF.Auth.Development\SF.Auth.Development.csproj" />
     <ProjectReference Include="..\SF.Auth.Services\SF.Auth.Services.csproj" />
   </ItemGroup>
 

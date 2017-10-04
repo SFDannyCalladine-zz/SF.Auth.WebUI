@@ -6,8 +6,6 @@ namespace SF.Auth.Services.Interfaces
 {
     public interface IAuthService
     {
-        Response<ConnectionDto> FindConnectionByEmail(string email);
-
         Response<UserDto> ValidateUser(ValidateUserRequest request);
     }
 }

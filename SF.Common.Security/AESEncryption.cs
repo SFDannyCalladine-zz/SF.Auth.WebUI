@@ -7,10 +7,10 @@ namespace SF.Common.Security
 {
     internal class AESEncryption
     {
-        private RijndaelManaged _algorithm;
-        private ICryptoTransform _decryptorTransform;
-        private UTF8Encoding _encoder;
-        private ICryptoTransform _encryptorTransform;
+        private readonly RijndaelManaged _algorithm;
+        private readonly ICryptoTransform _decryptorTransform;
+        private readonly UTF8Encoding _encoder;
+        private readonly ICryptoTransform _encryptorTransform;
 
         /// <param name="key">32 bytes</param>
         /// <param name="vector">16 bytes</param>
@@ -56,14 +56,18 @@ namespace SF.Common.Security
         public static byte[] GenerateKey()
         {
             var oAlgorithm = new RijndaelManaged();
+
             oAlgorithm.GenerateKey();
+
             return oAlgorithm.Key;
         }
 
         public static byte[] GenerateVector()
         {
             var oAlgorithm = new RijndaelManaged();
+
             oAlgorithm.GenerateIV();
+
             return oAlgorithm.IV;
         }
 
@@ -71,7 +75,7 @@ namespace SF.Common.Security
         {
             string value = null;
 
-            using (var memoryStream = new MemoryStream(System.Convert.FromBase64String(encryptedValue)))
+            using (var memoryStream = new MemoryStream(Convert.FromBase64String(encryptedValue)))
             {
                 using (var cryptoStream = new CryptoStream(memoryStream, _decryptorTransform, CryptoStreamMode.Read))
                 {

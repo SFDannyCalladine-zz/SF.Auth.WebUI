@@ -23,8 +23,13 @@ namespace SF.Auth.DataAccess.Mappings
                 .HasColumnType(DatabaseType.UID)
                 .IsRequired();
 
-            builder.HasMany(x => x.Users).WithOne().HasForeignKey(x => x.AccountGuid);
-            builder.HasOne(x => x.Connection).WithOne().HasForeignKey<Account>(x => x.ConnectionGuid);
+            builder.HasMany(x => x.Users)
+                .WithOne()
+                .HasForeignKey(x => x.AccountGuid);
+
+            builder.HasOne(x => x.Connection)
+                .WithOne()
+                .HasForeignKey<Account>(x => x.ConnectionGuid);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace SF.Auth.Services
     public class AuthService : BaseService, IAuthService
     {
         private readonly IAuthRepository _authRepository;
-
         private readonly IDbCustomerDatabaseFactory _contextFactory;
         private readonly IMapper _mapper;
         private readonly ISettingRepository _settingRepository;
@@ -35,27 +34,6 @@ namespace SF.Auth.Services
             _settingRepository = settingRepository;
             _contextFactory = contextFactory;
             _mapper = mapper;
-        }
-
-        public Response<ConnectionDto> FindConnectionByEmail(string email)
-        {
-            try
-            {
-                var connection = _authRepository.FindConnectionByEmail(email);
-
-                if (connection == null)
-                {
-                    throw new ServiceException(ResponseCode.NotFound, "Connection can not be found for provided Username");
-                }
-
-                var dto = _mapper.Map<ConnectionDto>(connection);
-
-                return new Response<ConnectionDto>(dto);
-            }
-            catch (Exception e)
-            {
-                return HandleException<ConnectionDto>(e);
-            }
         }
 
         public Response<UserDto> ValidateUser(ValidateUserRequest request)
@@ -98,7 +76,7 @@ namespace SF.Auth.Services
                     throw new ServiceException(ResponseCode.NotFound, "User can not be found with provided Email.");
                 }
 
-                var valid = Hashing.Validate(request.Password, user.Password);
+                var valid = user.ValidatePassword(request.Password);
 
                 if (valid)
                 {
