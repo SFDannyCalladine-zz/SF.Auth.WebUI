@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using SF.Common.DataAccess.Interface;
 using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories;
 using SF.Common.Settings.Repositories.Interfaces;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SF.Auth.WebUI
