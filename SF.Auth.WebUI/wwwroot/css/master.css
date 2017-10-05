@@ -1,0 +1,141 @@
+﻿body {
+  background: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0; }
+
+a {
+  cursor: pointer; }
+
+input,
+select,
+textarea {
+  max-width: 300px; }
+
+.orange-background {
+  background-color: #E87331;
+  background-image: none; }
+
+.orange-text {
+  color: #E87331; }
+
+.white-background {
+  background-color: #FFFFFF;
+  background-image: none; }
+
+.white-text, .panel-login > .panel-heading {
+  color: #FFFFFF; }
+
+.middle {
+  vertical-align: middle !important; }
+
+.navigate-back {
+  margin-bottom: 10px; }
+
+.login-background {
+  background: #2A2C35 url(../images/background.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100%; }
+
+#login-logo {
+  width: 329px; }
+
+.orange-link {
+  color: #E87331;
+  text-decoration: none; }
+  .orange-link:hover {
+    color: #E5570B;
+    text-decoration: none; }
+
+.btn.btn-primary {
+  color: #FFFFFF;
+  background-color: #E87331;
+  border-color: #E87331; }
+  .btn.btn-primary:hover {
+    color: #FFFFFF;
+    background-color: #E5570B;
+    border-color: #E5570B; }
+
+.form-inline > .row {
+  margin-bottom: 10px; }
+
+.help-block {
+  margin-bottom: 0;
+  margin-top: 0; }
+
+.form-group {
+  margin-bottom: 5px; }
+
+.form-horizontal .checkbox-inline {
+  padding-top: 0; }
+
+.input-center {
+  margin-left: auto;
+  margin-right: auto; }
+
+@media (min-width: 768px) {
+  .form-inline .form-control {
+    width: 100%; }
+  .form-inline .input-short {
+    width: 100px; }
+  .form-inline .input-medium {
+    width: 200px; }
+  .form-inline .input-long {
+    width: 300px; } }
+
+.panel-login {
+  margin: auto;
+  text-align: center;
+  margin-top: 125px;
+  background: none; }
+  .panel-login > .panel-heading {
+    font-size: 22px;
+    font-weight: normal;
+    padding: 15px; }
+  .panel-login .form-group {
+    margin-bottom: 10px; }
+
+.panel {
+  box-shadow: none; }
+
+.panel-experian > .panel-heading {
+  background-color: #E87331;
+  border: 1px solid #E87331;
+  color: #FFFFFF; }
+
+.panel-experian > .panel-body {
+  border: 1px solid #DDDDDD;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top: none; }
+
+.panel-small > .panel-heading {
+  padding: 4px 8px; }
+
+.panel-small > .panel-body {
+  padding: 4px; }
+
+.panel-menu {
+  border: 1px solid #DEDEDE; }
+  .panel-menu .panel-heading {
+    background-color: #F9F9F9;
+    border-bottom: 1px solid #DEDEDE; }
+    .panel-menu .panel-heading .btn {
+      margin-bottom: 0; }
+  .panel-menu .panel-body {
+    background-color: #F9F9F9;
+    padding: 10px; }
+
+.well-white {
+  background-color: #FFF; }
+
+.modal-header {
+  background-color: #E87331;
+  color: #FFFFFF;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
+
+/*.panel-small .form-group {
+    margin-bottom: 0;
+}*/
+

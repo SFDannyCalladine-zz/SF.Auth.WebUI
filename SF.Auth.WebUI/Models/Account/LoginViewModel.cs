@@ -5,13 +5,13 @@ namespace SF.Auth.WebUI.Models.Account
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter your Email Address")]
         [DisplayName("Password")]
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your Password")]
         [DisplayName("Username")]
         public string Username { get; set; }
 

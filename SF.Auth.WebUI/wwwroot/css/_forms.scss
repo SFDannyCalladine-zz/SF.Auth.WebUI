@@ -1,0 +1,34 @@
+﻿.form-group {
+    margin-bottom: 5px;
+}
+
+.form-horizontal {
+    .checkbox-inline {
+        padding-top: 0;
+    }
+}
+
+.input-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px) {
+    .form-inline {
+        .form-control {
+            width: 100%;
+        }
+
+        .input-short {
+            width: 100px;
+        }
+
+        .input-medium {
+            width: 200px;
+        }
+
+        .input-long {
+            width: 300px;
+        }
+    }
+}

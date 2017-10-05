@@ -23,10 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SF.Auth.Services\SF.Auth.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <ProjectReference Include="..\SF.Common.MVC\SF.Common.MVC.csproj" />
   </ItemGroup>
 
 </Project>

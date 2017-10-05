@@ -1,0 +1,63 @@
+﻿body {
+    background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+input,
+select,
+textarea {
+    max-width: 300px;
+}
+
+.orange-background {
+    background-color: $orange;
+    background-image: none;
+}
+
+.orange-text {
+    color: $orange;
+}
+
+.white-background {
+    background-color: $white;
+    background-image: none;
+}
+
+.white-text {
+    color: $white;
+}
+
+.middle {
+    vertical-align: middle !important;
+}
+
+.navigate-back {
+    margin-bottom: 10px;
+}
+
+.login-background {
+    background: #2A2C35 url(../images/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+#login-logo {
+    width: 329px;
+}
+
+.orange-link {
+    color: $orange;
+    text-decoration: none;
+
+    &:hover {
+        color: $dark-orange;
+        text-decoration: none;
+    }
+}

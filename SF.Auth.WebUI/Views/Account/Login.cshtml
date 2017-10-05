@@ -1,38 +1,49 @@
-﻿@model SF.Auth.WebUI.Models.Account.LoginViewModel
+﻿@using SF.Common.MVC
+@model SF.Auth.WebUI.Models.Account.LoginViewModel
 @{
     ViewBag.Title = "Login";
 }
 <div class="row">
-    <div class="col-md-8">
-        <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label asp-for="Username" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Username" class="form-control" />
-                        <span asp-validation-for="Username" class="text-danger"></span>
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+            <div class="panel-heading">
+                <img id="login-logo" src="~/images/storefeeder-logo.svg" alt="StoreFeeder • Multi Channels • One Solution" />
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("login", "account", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.ReturnUrl)
+                    <div class="form-group @Html.IsValid(x => x.Username, "has-error")">
+                        <div class="col-md-6 col-md-offset-3">
+                            @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Email Address" })
+                            @Html.ValidationMessageFor(x => x.Username, string.Empty, new { @class = "help-block pull-left" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="form-group @Html.IsValid(x => x.Password, "has-error")">
+                        <div class="col-md-6 col-md-offset-3">
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(x => x.Password, string.Empty, new { @class = "help-block pull-left" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-default">Log in</button>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button class="btn btn-primary pull-right" id="submit" type="submit">Login</button>
+                        </div>
                     </div>
-                </div>
-                <p>
-                    <a asp-action="ForgotPassword">Forgot your password?</a>
-                </p>
-            </form>
-        </section>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <a id="resetpassword" href="@Url.Action("requestpasswordreset", "login")" class="btn btn-link orange-link pull-right">
+                                Reset Your Password&nbsp;<i class="fa fa-chevron-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
+        @section Scripts {
+            @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+        }
