@@ -94,6 +94,12 @@ textarea {
     padding: 15px; }
   .panel-login .form-group {
     margin-bottom: 10px; }
+    .panel-login .form-group input,
+    .panel-login .form-group select,
+    .panel-login .form-group textarea {
+      max-width: 100%; }
+    .panel-login .form-group .btn-link {
+      padding: 0; }
 
 .panel {
   box-shadow: none; }

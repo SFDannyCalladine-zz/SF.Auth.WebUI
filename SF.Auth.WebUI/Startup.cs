@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +6,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SF.Auth.DataAccess;
-using SF.Auth.Repositories;
-using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services;
 using SF.Auth.Services.Interfaces;
 using SF.Common.DataAccess;
 using SF.Common.DataAccess.Interface;
+using SF.Common.Repositories;
+using SF.Common.Repositories.Interfaces;
 using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories;
 using SF.Common.Settings.Repositories.Interfaces;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace SF.Auth.WebUI
@@ -81,7 +79,7 @@ namespace SF.Auth.WebUI
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<dbCustomerDatabase>();
 
-            services.AddDbContext<dbAdmin>(options =>
+            services.AddDbContext<dbRoot>(options =>
                 options.UseSqlServer(adminConnectionString, builder =>
                     builder.MigrationsAssembly(migrationsAssembly)));
 
@@ -96,7 +94,7 @@ namespace SF.Auth.WebUI
         }
 
         private static void AddIdentityServer(
-                            IServiceCollection services,
+            IServiceCollection services,
             IConfiguration configuration,
             string migrationsAssembly)
         {
@@ -116,13 +114,14 @@ namespace SF.Auth.WebUI
 
         private static void AddRepositories(IServiceCollection services)
         {
-            services.AddSingleton<IAuthRepository, AuthRepository>();
+            services.AddSingleton<IRootRepository, RootRepository>();
             services.AddSingleton<ISettingRepository, SettingRepository>();
         }
 
         private static void AddServices(IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

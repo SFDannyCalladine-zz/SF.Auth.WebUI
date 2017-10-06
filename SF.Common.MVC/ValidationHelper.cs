@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using System;
 using System.Linq;
@@ -10,8 +9,6 @@ namespace SF.Common.MVC
 {
     public static class ValidationHelper
     {
-        #region Public Methods
-
         public static HtmlString CleanValidationSummary(
             this IHtmlHelper htmlHelper,
             object htmlAttributes)
@@ -34,14 +31,12 @@ namespace SF.Common.MVC
 
             var state = htmlHelper.ViewData.ModelState[fullHtmlFieldName];
 
-            if(state == null || state.Errors.Count == 0)
+            if (state == null || state.Errors.Count == 0)
             {
                 return HtmlString.Empty;
             }
 
             return new HtmlString(errorClass);
         }
-
-        #endregion Public Methods
     }
 }

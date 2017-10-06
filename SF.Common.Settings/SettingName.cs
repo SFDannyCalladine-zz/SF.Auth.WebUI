@@ -4,5 +4,6 @@
     {
         public const string EncryptionKey = "EncryptionKey";
         public const string EncryptionSalt = "EncryptionSalt";
+        public const string PasswordResetLength = "PasswordResetLength";
     }
 }

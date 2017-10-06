@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SF.Common.Domain\SF.Common.Domain.csproj" />
     <ProjectReference Include="..\SF.Common.Security\SF.Common.Security.csproj" />
   </ItemGroup>
 

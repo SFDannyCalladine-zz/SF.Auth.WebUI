@@ -2,6 +2,8 @@
 {
     public interface ISettingRepository
     {
-        Setting FindSetting(string settingName);
+        int FindSettingAsInt(string settingName);
+
+        string FindSettingAsString(string settingName);
     }
 }

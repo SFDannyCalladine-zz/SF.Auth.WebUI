@@ -6,7 +6,7 @@ namespace SF.Auth.DataAccess
 {
     public class dbCustomerDatabase : DbContext
     {
-        public DbSet<CustomerUser> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         private readonly string _connectionString;
 
@@ -24,7 +24,8 @@ namespace SF.Auth.DataAccess
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new CustomerUserMapping());
+            builder.ApplyConfiguration(new UserMapping());
+            builder.ApplyConfiguration(new ForgottenPasswordMapping());
 
             base.OnModelCreating(builder);
         }

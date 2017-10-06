@@ -9,10 +9,7 @@ namespace SF.Auth.Services.Mapping
         public AuthMappingProfile()
             : base()
         {
-            CreateMap<Connection, ConnectionDto>()
-                .ForMember(d => d.EncryptedConnectionString, s => s.MapFrom(x => x.EncryptedConnectionString));
-
-            CreateMap<CustomerUser, UserDto>()
+            CreateMap<User, UserDto>()
                 .ForMember(d => d.UserId, s => s.MapFrom(x => x.UserId))
                 .ForMember(d => d.UserGuid, s => s.MapFrom(x => x.UserGuid))
                 .ForMember(d => d.Name, s => s.MapFrom(x => x.Name))

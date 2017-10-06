@@ -5,6 +5,7 @@ using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services.Interfaces;
 using SF.Auth.Services.Request;
 using SF.Common.DataAccess.Interface;
+using SF.Common.Repositories.Interfaces;
 using SF.Common.Security;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Services;
@@ -17,22 +18,21 @@ namespace SF.Auth.Services
 {
     public class AuthService : BaseService, IAuthService
     {
-        private readonly IAuthRepository _authRepository;
-        private readonly IDbCustomerDatabaseFactory _contextFactory;
+        private readonly IDbCustomerDatabaseFactory _customerContextFactory;
         private readonly IMapper _mapper;
-        private readonly ISettingRepository _settingRepository;
 
-        private ICustomerAuthRepository _customerAuthRepository;
+        private IUserRepository _userRepository;
 
         public AuthService(
-            IAuthRepository authRepository,
+            IRootRepository rootRepository,
             ISettingRepository settingRepository,
-            IDbCustomerDatabaseFactory contextFactory,
+            IDbCustomerDatabaseFactory customerContextFactory,
             IMapper mapper)
+            : base(
+                  rootRepository,
+                  settingRepository)
         {
-            _authRepository = authRepository;
-            _settingRepository = settingRepository;
-            _contextFactory = contextFactory;
+            _customerContextFactory = customerContextFactory;
             _mapper = mapper;
         }
 
@@ -40,36 +40,36 @@ namespace SF.Auth.Services
         {
             try
             {
-                var connection = _authRepository.FindConnectionByEmail(request.Email);
+                var connection = _rootRepository.FindConnectionByEmail(request.Email);
 
                 if (connection == null)
                 {
                     throw new ServiceException(ResponseCode.NotFound, "Connection can not be found for provided Username.");
                 }
 
-                var encryptionSaltSetting = _settingRepository.FindSetting(SettingName.EncryptionSalt);
-                var encryptionKeySetting = _settingRepository.FindSetting(SettingName.EncryptionKey);
+                var encryptionSaltSetting = _settingRepository.FindSettingAsString(SettingName.EncryptionSalt);
+                var encryptionKeySetting = _settingRepository.FindSettingAsString(SettingName.EncryptionKey);
 
-                if (encryptionSaltSetting == null)
+                if (string.IsNullOrWhiteSpace(encryptionSaltSetting))
                 {
                     throw new ServiceException(ResponseCode.NotFound, "Encryption Salt can not be found.");
                 }
 
-                if (encryptionKeySetting == null)
+                if (string.IsNullOrWhiteSpace(encryptionKeySetting))
                 {
                     throw new ServiceException(ResponseCode.NotFound, "Encryption Key can not be found.");
                 }
 
                 var connectionString =
                     new Encryption(
-                        encryptionKeySetting.Value,
-                        encryptionSaltSetting.Value,
+                        encryptionKeySetting,
+                        encryptionSaltSetting,
                         connection.ConnectionGuid.ToByteArray())
                     .DecryptString(connection.EncryptedConnectionString);
 
-                _customerAuthRepository = new CustomerAuthRepository(_contextFactory.CreateDbContext(connectionString));
+                _userRepository = new UserRepository(_customerContextFactory.CreateDbContext(connectionString));
 
-                var user = _customerAuthRepository.FindUserByEmail(request.Email);
+                var user = _userRepository.FindUserByEmail(request.Email);
 
                 if (user == null)
                 {

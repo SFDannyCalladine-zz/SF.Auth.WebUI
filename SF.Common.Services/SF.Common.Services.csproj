@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SF.Auth.Accounts\SF.Auth.Accounts.csproj" />
+    <ProjectReference Include="..\SF.Auth.Repositories\SF.Auth.Repositories.csproj" />
     <ProjectReference Include="..\SF.Common.Domain\SF.Common.Domain.csproj" />
     <ProjectReference Include="..\SF.Common.ServiceModels\SF.Common.ServiceModels.csproj" />
+    <ProjectReference Include="..\SF.Common.Settings\SF.Common.Settings.csproj" />
   </ItemGroup>
 
 </Project>

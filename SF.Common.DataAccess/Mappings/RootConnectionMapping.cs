@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SF.Auth.Accounts;
-using SF.Common.DataAccess;
+using SF.Common.Root;
 
-namespace SF.Auth.DataAccess.Mappings
+namespace SF.Common.DataAccess.Mappings
 {
-    public class ConnectionMapping : IEntityTypeConfiguration<Connection>
+    public class RootConnectionMapping : IEntityTypeConfiguration<RootConnection>
     {
-        public void Configure(EntityTypeBuilder<Connection> builder)
+        public void Configure(EntityTypeBuilder<RootConnection> builder)
         {
             builder.ToTable("Connection");
 
@@ -24,7 +23,7 @@ namespace SF.Auth.DataAccess.Mappings
 
             builder.HasOne(x => x.Account)
                 .WithOne(x => x.Connection)
-                .HasForeignKey<Account>(x => x.ConnectionGuid);
+                .HasForeignKey<RootAccount>(x => x.ConnectionGuid);
         }
     }
 }

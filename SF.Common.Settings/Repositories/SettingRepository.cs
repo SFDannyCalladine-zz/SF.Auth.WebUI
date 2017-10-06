@@ -1,5 +1,6 @@
 ﻿using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories.Interfaces;
+using System;
 using System.Linq;
 
 namespace SF.Common.Settings.Repositories
@@ -13,11 +14,28 @@ namespace SF.Common.Settings.Repositories
             _context = context;
         }
 
-        public Setting FindSetting(string settingName)
+        public int FindSettingAsInt(string settingName)
         {
-            return _context
+            return Convert.ToInt32(FindSetting(settingName).Value);
+        }
+
+        public string FindSettingAsString(string settingName)
+        {
+            return FindSetting(settingName).Value;
+        }
+
+        private Setting FindSetting(string settingName)
+        {
+            var setting = _context
                 .Settings
                 .FirstOrDefault(x => x.Name == settingName);
+
+            if (setting == null)
+            {
+                throw new Exception("Setting can not be found");
+            }
+
+            return setting;
         }
     }
 }

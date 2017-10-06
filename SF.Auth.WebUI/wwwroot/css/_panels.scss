@@ -2,7 +2,7 @@
     margin: auto;
     text-align: center;
     margin-top: 125px;
-    background:none;
+    background: none;
 
     > .panel-heading {
         font-size: 22px;
@@ -14,9 +14,17 @@
 
     .form-group {
         margin-bottom: 10px;
+
+        input,
+        select,
+        textarea {
+            max-width: 100%;
+        }
+
+        .btn-link {
+            padding:0;
+        }
     }
-
-
 }
 
 .panel {
