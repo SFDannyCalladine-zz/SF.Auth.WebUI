@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using System.IO;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SF.Auth.WebUI
 {
@@ -8,8 +11,20 @@ namespace SF.Auth.WebUI
     {
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseKestrel()
-                .UseUrls("http://localhost:5000")
+                .UseKestrel(options =>
+                {
+                    options.Listen(IPAddress.Any, 5000);
+
+                    options.Listen(IPAddress.Any, 44329, listenOptions =>
+                    {
+                        //listenOptions.UseHttps("certificate.pfx", "BlinkyPlant18");
+                        listenOptions.UseHttps(new HttpsConnectionAdapterOptions
+                        {
+                            ServerCertificate = new X509Certificate2("certificate.pfx", "BlinkyPlant18"),
+                            ClientCertificateMode = ClientCertificateMode.NoCertificate
+                        });
+                    });
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

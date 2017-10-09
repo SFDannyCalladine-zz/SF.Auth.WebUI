@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.MVC", "SF.Common.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Repositories", "SF.Common.Repositories\SF.Common.Repositories.csproj", "{F51D88DA-25F6-4565-B624-7632D973467B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Common.Root", "SF.Common.Root\SF.Common.Root.csproj", "{D3998443-A5C9-4647-91F7-2B4BCA170594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Root", "SF.Common.Root\SF.Common.Root.csproj", "{D3998443-A5C9-4647-91F7-2B4BCA170594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,30 +1,20 @@
-﻿@model SF.Auth.WebUI.Models.Account.LoggedOutViewModel
+﻿@using System.Security.Claims
+@model SF.Auth.WebUI.Models.Account.LoggedOutViewModel
 @{
     // set this so UI rendering sees an anonymous user
-    Context.User = new System.Security.Claims.ClaimsPrincipal(new System.Security.Claims.ClaimsIdentity());
+    Context.User = new ClaimsPrincipal(new ClaimsIdentity());
 }
-
-<div class="page-header logged-out">
-    <h1>
-        Logout
-        <small>You are now logged out</small>
-    </h1>
-
-    @if (Model.PostLogoutRedirectUri != null)
-    {
-        <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+            <div class="panel-heading">
+                <img id="login-logo" src="~/images/storefeeder-logo.svg" alt="StoreFeeder • Multi Channels • One Solution" />
+            </div>
+            <div class="panel-body">
+                <div class="col-md-8 col-md-offset-2">
+                    <p>You are now logged out of StoreFeeder.</p>
+                </div>
+            </div>
         </div>
-    }
-
-    @if (Model.SignOutIframeUrl != null)
-    {
-        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
-    }
+    </div>
 </div>
-
-@section scripts
-{
-    <script src="~/js/signout-redirect.js"></script>
-}

@@ -86,6 +86,7 @@ namespace SF.Auth.WebUI.Controllers
             return Redirect("~/");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Logout(string logoutId)
         {
@@ -95,6 +96,7 @@ namespace SF.Auth.WebUI.Controllers
         }
 
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Logout(LogoutViewModel model)
         {
@@ -123,7 +125,7 @@ namespace SF.Auth.WebUI.Controllers
 
             var response = _userService.IsValidKey(
                 new IsValidKeyRequest(
-                    key, 
+                    key,
                     userGuid));
 
             if (response.Code != ResponseCode.Success)

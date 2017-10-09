@@ -1,23 +1,25 @@
 ﻿@model SF.Auth.WebUI.Models.Account.LogoutViewModel
-@{
-    ViewBag.Title = "Logout";
-}
-<div class="logout-page">
-    <div class="page-header">
-        <h1>Logout</h1>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <p>Would you like to logout of IdentityServer?</p>
-            <form asp-action="Logout">
-                <input type="hidden" name="logoutId" value="@Model.LogoutId" />
-                <fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-primary">Yes</button>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+            <div class="panel-heading">
+                <img id="login-logo" src="~/images/storefeeder-logo.svg" alt="StoreFeeder • Multi Channels • One Solution" />
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("logout", "account", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.LogoutId)
+                    <div class="col-md-8 col-md-offset-2">
+                        <p>Would you like to logout of StoreFeeder?</p>
                     </div>
-                </fieldset>
-            </form>
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button class="btn btn-primary" id="submit" type="submit">Logout&nbsp;<i class="fa fa-sign-out"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

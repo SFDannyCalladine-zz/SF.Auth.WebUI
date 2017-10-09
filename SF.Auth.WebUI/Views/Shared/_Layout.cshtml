@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SF.Auth.WebUI</title>
+    <title>StoreFeeder</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -20,6 +20,7 @@
 </head>
 <body>
     <div class="container body-content">
+        @Html.Partial("_HelpDropdown")
         @RenderBody()
     </div>
 
