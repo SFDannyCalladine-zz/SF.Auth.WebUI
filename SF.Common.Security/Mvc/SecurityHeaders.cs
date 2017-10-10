@@ -21,7 +21,7 @@ namespace SF.Common.Security.Mvc
                     context.HttpContext.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
                 }
 
-                var csp = "default-src 'self' style-src 'self' https://ajax.aspnetcdn.com script-src 'self' ";
+                var csp = "default-src 'self'; style-src 'self' https://ajax.aspnetcdn.com; script-src 'self'; ";
 
                 // once for standards compliant browsers
                 if (!context.HttpContext.Response.Headers.ContainsKey("Content-Security-Policy"))
