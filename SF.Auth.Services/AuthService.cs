@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SF.Auth.DataTransferObjects;
+using SF.Auth.DataTransferObjects.Account;
 using SF.Auth.Repositories;
 using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services.Interfaces;
@@ -16,7 +16,7 @@ using System;
 
 namespace SF.Auth.Services
 {
-    public class AuthService : BaseService, IAuthService
+    public class AuthService : RootService, IAuthService
     {
         private readonly IDbCustomerDatabaseFactory _customerContextFactory;
         private readonly IMapper _mapper;

@@ -1,4 +1,4 @@
-﻿using SF.Auth.DataTransferObjects;
+﻿using SF.Auth.DataTransferObjects.Account;
 using SF.Auth.Services.Request;
 using SF.Common.ServiceModels.Response;
 

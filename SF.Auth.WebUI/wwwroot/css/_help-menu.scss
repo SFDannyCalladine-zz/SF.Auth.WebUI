@@ -1,0 +1,61 @@
+﻿#help-menu {
+    position: absolute;
+    top: -125px;
+    right: 20px;
+    width: 360px;
+    text-align: center;
+    transition: top 0.1s;
+    z-index: 2;
+}
+
+#help-menu:hover,
+#help-menu.hover {
+    top: 0;
+}
+
+#help-menu ul {
+    background-color: $white;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#help-menu ul li a {
+    display: block;
+    line-height: 29px;
+    padding-bottom: 2px;
+    color: $orange;
+}
+
+#help-menu ul li a:hover {
+    background-color: $orange;
+    text-decoration: none;
+    color: $white;
+}
+
+#help-menu .grip {
+    background: $orange;
+    text-align: center;
+    padding: 8px 10px 9px 10px;
+    border-radius: 0 0 4px 4px;
+    cursor: default;
+    transition: background-color 0.1s;
+    border-top: $grey 1px solid;
+}
+
+#help-menu .grip .text {
+    display: inline-block;
+    background: url(../images/login/more-arrows.png) no-repeat right -64px;
+    line-height: 21px;
+    color: $white;
+}
+
+#help-menu:hover .grip,
+#help-menu.hover .grip {
+    background-color: $orange;
+}
+
+#help-menu:hover .grip .text,
+#help-menu.hover .grip .text {
+    background-position: right -4px;
+}

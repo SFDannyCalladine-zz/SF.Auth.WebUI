@@ -1,0 +1,16 @@
+﻿@model IList<SF.Auth.WebUI.Models.HelpLinkViewModel>
+
+<div id="help-menu">
+    <ul>
+        @foreach(var link in Model.OrderBy(x => x.Order).ThenBy(x => x.LinkText))
+        {
+            if(!string.IsNullOrWhiteSpace(link.Url) && !string.IsNullOrWhiteSpace(link.LinkText))
+            {
+                <li>
+                    <a href="@link.Url" target="_blank" tabindex="-1">@link.LinkText</a>
+                </li>
+            }
+        }
+    </ul>
+    <div class="grip"><span class="text">Help and Support</span></div>
+</div>

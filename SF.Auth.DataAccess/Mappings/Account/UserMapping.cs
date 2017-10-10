@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SF.Auth.Accounts;
 using SF.Common.DataAccess;
 
-namespace SF.Auth.DataAccess.Mappings
+namespace SF.Auth.DataAccess.Mappings.Account
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {

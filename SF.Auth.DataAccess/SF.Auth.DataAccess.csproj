@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SF.Auth.Accounts\SF.Auth.Accounts.csproj" />
+    <ProjectReference Include="..\SF.Auth.Help\SF.Common.Help.csproj" />
     <ProjectReference Include="..\SF.Common.DataAccess\SF.Common.DataAccess.csproj" />
   </ItemGroup>
 

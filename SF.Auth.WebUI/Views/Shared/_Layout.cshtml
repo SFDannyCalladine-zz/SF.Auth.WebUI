@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="container body-content">
-        @Html.Partial("_HelpDropdown")
+        @await Component.InvokeAsync("HelpMenu")
         @RenderBody()
     </div>
 

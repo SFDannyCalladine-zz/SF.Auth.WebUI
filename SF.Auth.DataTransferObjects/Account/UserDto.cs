@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SF.Auth.DataTransferObjects
+namespace SF.Auth.DataTransferObjects.Account
 {
     public class UserDto
     {

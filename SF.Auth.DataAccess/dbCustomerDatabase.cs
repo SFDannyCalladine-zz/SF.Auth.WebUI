@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SF.Auth.Accounts;
-using SF.Auth.DataAccess.Mappings;
+using SF.Auth.DataAccess.Mappings.Account;
 
 namespace SF.Auth.DataAccess
 {

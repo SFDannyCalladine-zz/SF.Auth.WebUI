@@ -141,7 +141,7 @@ namespace SF.Auth.WebUI.Controllers
             }
 
             var model = new PasswordResetViewModel(
-                key, 
+                key,
                 userGuid);
 
             return View(model);

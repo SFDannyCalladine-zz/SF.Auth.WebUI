@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Repositories", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Common.Root", "SF.Common.Root\SF.Common.Root.csproj", "{D3998443-A5C9-4647-91F7-2B4BCA170594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Common.Help", "SF.Auth.Help\SF.Common.Help.csproj", "{5365CD88-7B5C-4F90-9213-A6B570A1F1F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{D3998443-A5C9-4647-91F7-2B4BCA170594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3998443-A5C9-4647-91F7-2B4BCA170594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3998443-A5C9-4647-91F7-2B4BCA170594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5365CD88-7B5C-4F90-9213-A6B570A1F1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5365CD88-7B5C-4F90-9213-A6B570A1F1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5365CD88-7B5C-4F90-9213-A6B570A1F1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5365CD88-7B5C-4F90-9213-A6B570A1F1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

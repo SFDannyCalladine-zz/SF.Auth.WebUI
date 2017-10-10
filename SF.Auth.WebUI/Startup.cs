@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SF.Auth.DataAccess;
+using SF.Auth.Repositories;
+using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services;
 using SF.Auth.Services.Interfaces;
 using SF.Common.DataAccess;
@@ -75,6 +77,7 @@ namespace SF.Auth.WebUI
         {
             var adminConnectionString = configuration.GetConnectionString("StoreFeederRoot");
             var settingConnectionString = configuration.GetConnectionString("SFSetting");
+            var helpConnectionString = configuration.GetConnectionString("SFHelp");
 
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<dbCustomerDatabase>();
@@ -85,6 +88,10 @@ namespace SF.Auth.WebUI
 
             services.AddDbContext<dbSetting>(options =>
                 options.UseSqlServer(settingConnectionString, builder =>
+                    builder.MigrationsAssembly(migrationsAssembly)));
+
+            services.AddDbContext<dbHelp>(options =>
+                options.UseSqlServer(helpConnectionString, builder =>
                     builder.MigrationsAssembly(migrationsAssembly)));
         }
 
@@ -116,12 +123,14 @@ namespace SF.Auth.WebUI
         {
             services.AddSingleton<IRootRepository, RootRepository>();
             services.AddSingleton<ISettingRepository, SettingRepository>();
+            services.AddSingleton<IHelpRepository, HelpRepository>();
         }
 
         private static void AddServices(IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IHelpService, HelpService>();
         }
     }
 }

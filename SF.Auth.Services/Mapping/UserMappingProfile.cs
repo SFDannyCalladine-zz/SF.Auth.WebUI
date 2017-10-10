@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using SF.Auth.Accounts;
-using SF.Auth.DataTransferObjects;
+using SF.Auth.DataTransferObjects.Account;
 
 namespace SF.Auth.Services.Mapping
 {
-    public class AuthMappingProfile : Profile
+    public class UserMappingProfile : Profile
     {
-        public AuthMappingProfile()
+        public UserMappingProfile()
             : base()
         {
             CreateMap<User, UserDto>()

@@ -10,11 +10,11 @@ namespace SF.Auth.WebUI.Models.Account
 
         public string Key { get; set; }
 
-        public Guid UserGuid { get; set; }
-
         [Required(ErrorMessage = "Please enter a New Password")]
         //[IsValidPassword(ErrorMessage = "Please enter a valid Password")]
         public string NewPassword { get; set; }
+
+        public Guid UserGuid { get; set; }
 
         public PasswordResetViewModel()
         {

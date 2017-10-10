@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SF.Auth.Accounts\SF.Auth.Accounts.csproj" />
     <ProjectReference Include="..\SF.Auth.DataAccess\SF.Auth.DataAccess.csproj" />
+    <ProjectReference Include="..\SF.Auth.Help\SF.Common.Help.csproj" />
     <ProjectReference Include="..\SF.Common.Repositories\SF.Common.Repositories.csproj" />
   </ItemGroup>
 

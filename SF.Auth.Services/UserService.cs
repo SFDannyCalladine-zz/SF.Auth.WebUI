@@ -14,7 +14,7 @@ using System;
 
 namespace SF.Auth.Services
 {
-    public class UserService : BaseService, IUserService
+    public class UserService : RootService, IUserService
     {
         private readonly IDbCustomerDatabaseFactory _customerContextFactory;
 
