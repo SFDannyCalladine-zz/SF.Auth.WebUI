@@ -1,15 +1,20 @@
-﻿using SF.Common.Settings.Database;
+﻿using SF.Auth.Repositories.Cache;
+using SF.Common.Repositories.Cache.Interfaces;
+using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories.Interfaces;
 using System;
 using System.Linq;
 
 namespace SF.Common.Settings.Repositories
 {
-    public class SettingRepository : ISettingRepository
+    public class SettingRepository : CacheRepository, ISettingRepository
     {
         private readonly dbSetting _context;
 
-        public SettingRepository(dbSetting context)
+        public SettingRepository
+            (dbSetting context,
+             ICacheStorage cache)
+            : base(cache)
         {
             _context = context;
         }
@@ -26,13 +31,20 @@ namespace SF.Common.Settings.Repositories
 
         private Setting FindSetting(string settingName)
         {
-            var setting = _context
-                .Settings
-                .FirstOrDefault(x => x.Name == settingName);
+            var setting = Cache.Retrieve<Setting>(settingName);
 
             if (setting == null)
             {
-                throw new Exception("Setting can not be found");
+                setting = _context
+                    .Settings
+                    .FirstOrDefault(x => x.Name == settingName);
+
+                if (setting == null)
+                {
+                    throw new Exception("Setting can not be found");
+                }
+
+                Cache.Store(setting.Name, setting.Value);
             }
 
             return setting;

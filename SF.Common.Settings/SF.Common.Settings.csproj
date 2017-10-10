@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SF.Common.DataAccess\SF.Common.DataAccess.csproj" />
+    <ProjectReference Include="..\SF.Common.Repositories\SF.Common.Repositories.csproj" />
   </ItemGroup>
 
 </Project>
