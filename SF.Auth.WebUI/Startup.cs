@@ -2,17 +2,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SF.Auth.DataAccess;
 using SF.Auth.Repositories;
+using SF.Auth.Repositories.Cache;
 using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services;
 using SF.Auth.Services.Interfaces;
 using SF.Common.DataAccess;
 using SF.Common.DataAccess.Interface;
 using SF.Common.Repositories;
+using SF.Common.Repositories.Cache.Interfaces;
 using SF.Common.Repositories.Interfaces;
 using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories;
@@ -124,6 +127,9 @@ namespace SF.Auth.WebUI
             services.AddSingleton<IRootRepository, RootRepository>();
             services.AddSingleton<ISettingRepository, SettingRepository>();
             services.AddSingleton<IHelpRepository, HelpRepository>();
+
+            services.AddSingleton<ICacheStorage, MemoryCacheAdpater>();
+            services.AddSingleton<IMemoryCache, MemoryCache>();
         }
 
         private static void AddServices(IServiceCollection services)
