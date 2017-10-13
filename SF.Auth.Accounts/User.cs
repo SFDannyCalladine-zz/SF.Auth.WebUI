@@ -20,12 +20,6 @@ namespace SF.Auth.Accounts
 
         public int UserId { get; private set; }
 
-        protected User()
-        {
-            UserId = 0;
-            ForgottenPasswords = new List<ForgottenPassword>();
-        }
-
         public User(
             Guid userGuid,
             string name,
@@ -54,8 +48,14 @@ namespace SF.Auth.Accounts
             Password = Hashing.Hash(password);
         }
 
+        protected User()
+        {
+            UserId = 0;
+            ForgottenPasswords = new List<ForgottenPassword>();
+        }
+
         public void AddPasswordResetRequest(
-            ForgottenPassword passwordResetRequest, 
+            ForgottenPassword passwordResetRequest,
             int expiryLength)
         {
             if (passwordResetRequest == null)
@@ -63,7 +63,7 @@ namespace SF.Auth.Accounts
                 throw new DomainValidationException(nameof(passwordResetRequest), "Password Reset Request can not be null.");
             }
 
-            if(!passwordResetRequest.IsValid(expiryLength))
+            if (!passwordResetRequest.IsValid(expiryLength))
             {
                 throw new DomainValidationException("Can not add invalid request.");
             }
@@ -93,21 +93,11 @@ namespace SF.Auth.Accounts
             return true;
         }
 
-        private void UpdatePassword(string newPassword)
-        {
-            if (string.IsNullOrEmpty(newPassword))
-            {
-                throw new DomainValidationException(nameof(newPassword), "Password can not be null or empty.");
-            }
-
-            Password = Hashing.Hash(newPassword);
-        }
-
         public void UpdatePasswordWithKey(Guid key, int expiryLength, string password)
         {
             var valid = IsValidKey(key, expiryLength);
 
-            if(!valid)
+            if (!valid)
             {
                 throw new DomainValidationException("Password Reset Request is not valid.");
             }
@@ -132,6 +122,16 @@ namespace SF.Auth.Accounts
         private ForgottenPassword FindPasswordResetRequest(Guid key)
         {
             return ForgottenPasswords.FirstOrDefault(x => x.Key == key);
+        }
+
+        private void UpdatePassword(string newPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                throw new DomainValidationException(nameof(newPassword), "Password can not be null or empty.");
+            }
+
+            Password = Hashing.Hash(newPassword);
         }
     }
 }

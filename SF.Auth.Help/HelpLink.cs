@@ -12,18 +12,13 @@ namespace SF.Common.Help
 
         public string Url { get; private set; }
 
-        private HelpLink()
-        {
-            HelpLinkId = 0;
-        }
-
         public HelpLink(
             string url,
             string linkText,
             byte order)
             : this()
         {
-            if(string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(url))
             {
                 throw new DomainValidationException(nameof(url), " Url can not be null or empty.");
             }
@@ -36,6 +31,11 @@ namespace SF.Common.Help
             Url = url;
             LinkText = linkText;
             Order = order;
+        }
+
+        private HelpLink()
+        {
+            HelpLinkId = 0;
         }
     }
 }

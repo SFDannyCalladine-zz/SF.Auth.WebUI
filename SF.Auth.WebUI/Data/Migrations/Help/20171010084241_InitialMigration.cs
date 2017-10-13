@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace SF.Auth.WebUI.Data.Migrations.Help
 {
     public partial class InitialMigration : Migration
     {
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "HelpLinks");
+        }
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -23,12 +27,6 @@ namespace SF.Auth.WebUI.Data.Migrations.Help
                 {
                     table.PrimaryKey("PK_HelpLinks", x => x.HelpLinkID);
                 });
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "HelpLinks");
         }
     }
 }

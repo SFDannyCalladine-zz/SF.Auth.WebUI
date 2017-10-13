@@ -23,27 +23,20 @@ namespace SF.Auth.UnitTests.Services
     [TestFixture]
     public class AuthServiceTests
     {
+        private const string Key = "2013.mcw.24ge2$ed[@dysSD62Lpww#$";
+        private const string Salt = "2013.mcw.suhg$^s68#7IUHd98$uw09i";
         private AuthService _authService;
 
+        private RootConnection _connection;
+        private Mock<IDbCustomerDatabaseFactory> _customerContextFactoryMock;
+        private Mock<dbCustomerDatabase> _customerDatabaseMock;
+        private Mock<IMapper> _mapperMock;
+        private ValidateUserRequest _request;
         private Mock<IRootRepository> _rootRepoMock;
 
         private Mock<ISettingRepository> _settingRepoMock;
-
-        private Mock<IDbCustomerDatabaseFactory> _customerContextFactoryMock;
-
-        private Mock<IMapper> _mapperMock;
-
-        private Mock<dbCustomerDatabase> _customerDatabaseMock;
         private Mock<DbSet<User>> _userDbSetMock;
-
-        private ValidateUserRequest _request;
-
-        private RootConnection _connection;
-
         private UserDto _userDto;
-
-        private const string Salt = "2013.mcw.suhg$^s68#7IUHd98$uw09i";
-        private const string Key = "2013.mcw.24ge2$ed[@dysSD62Lpww#$";
 
         [SetUp]
         public void SetUp()
@@ -110,9 +103,11 @@ namespace SF.Auth.UnitTests.Services
         }
 
         [Test]
-        public void ValidateUserServiceExceptionNoConnectionFound()
+        public void ValidateUserServiceExceptionEncryptionKeySettingNotFound()
         {
-            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns((RootConnection)null);
+            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns(_connection);
+            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionSalt)).Returns(Salt);
+            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionKey)).Returns((string)null);
 
             var response = _authService.ValidateUser(_request);
 
@@ -138,11 +133,9 @@ namespace SF.Auth.UnitTests.Services
         }
 
         [Test]
-        public void ValidateUserServiceExceptionEncryptionKeySettingNotFound()
+        public void ValidateUserServiceExceptionNoConnectionFound()
         {
-            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns(_connection);
-            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionSalt)).Returns(Salt);
-            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionKey)).Returns((string)null);
+            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns((RootConnection)null);
 
             var response = _authService.ValidateUser(_request);
 
@@ -171,23 +164,6 @@ namespace SF.Auth.UnitTests.Services
         }
 
         [Test]
-        public void ValidateUserSuccessfulValidTest()
-        {
-            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns(_connection);
-            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionSalt)).Returns(Salt);
-            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionKey)).Returns(Key);
-            _customerContextFactoryMock.Setup(x => x.CreateDbContext(It.IsAny<string>())).Returns(_customerDatabaseMock.Object);
-            _mapperMock.Setup(x => x.Map<UserDto>(It.IsAny<User>())).Returns(_userDto);
-
-            var response = _authService.ValidateUser(_request);
-
-            Assert.IsNotNull(response);
-            Assert.AreEqual(ResponseCode.Success, response.Code);
-            Assert.IsEmpty(response.ErrorMessage);
-            Assert.AreEqual(_userDto, response.Entity);
-        }
-
-        [Test]
         public void ValidateUserSuccessfulInvalidTest()
         {
             _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns(_connection);
@@ -204,6 +180,23 @@ namespace SF.Auth.UnitTests.Services
             Assert.AreEqual(ResponseCode.ValidationError, response.Code);
             Assert.IsNotEmpty(response.ErrorMessage);
             Assert.IsNull(response.Entity);
+        }
+
+        [Test]
+        public void ValidateUserSuccessfulValidTest()
+        {
+            _rootRepoMock.Setup(x => x.FindConnectionByEmail(It.IsAny<string>())).Returns(_connection);
+            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionSalt)).Returns(Salt);
+            _settingRepoMock.Setup(x => x.FindSettingAsString(SettingName.EncryptionKey)).Returns(Key);
+            _customerContextFactoryMock.Setup(x => x.CreateDbContext(It.IsAny<string>())).Returns(_customerDatabaseMock.Object);
+            _mapperMock.Setup(x => x.Map<UserDto>(It.IsAny<User>())).Returns(_userDto);
+
+            var response = _authService.ValidateUser(_request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(ResponseCode.Success, response.Code);
+            Assert.IsEmpty(response.ErrorMessage);
+            Assert.AreEqual(_userDto, response.Entity);
         }
     }
 }

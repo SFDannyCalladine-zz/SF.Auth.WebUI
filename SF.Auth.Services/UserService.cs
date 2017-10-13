@@ -108,8 +108,8 @@ namespace SF.Auth.Services
                 var expiryLength = _settingRepository.FindSettingAsInt(SettingName.PasswordResetLength);
 
                 user.UpdatePasswordWithKey(
-                    request.Key, 
-                    expiryLength, 
+                    request.Key,
+                    expiryLength,
                     request.Password);
 
                 _userRepository.Save();

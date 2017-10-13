@@ -10,14 +10,13 @@ namespace SF.Auth.Repositories
 {
     public class HelpRepository : CacheRepository, IHelpRepository
     {
-        private readonly dbHelp _context;
-
         private const string HelpLinkKey = "HelpLinks";
+        private readonly dbHelp _context;
 
         public HelpRepository(
             dbHelp context,
             ICacheStorage cache)
-            : base (cache)
+            : base(cache)
         {
             _context = context;
         }

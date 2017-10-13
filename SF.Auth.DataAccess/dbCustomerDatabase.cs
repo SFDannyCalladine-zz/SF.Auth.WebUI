@@ -10,11 +10,13 @@ namespace SF.Auth.DataAccess
 
         private readonly string _connectionString;
 
-        protected dbCustomerDatabase() { }
-
         public dbCustomerDatabase(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        protected dbCustomerDatabase()
+        {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -6,11 +6,9 @@ using SF.Auth.Services.Interfaces;
 using SF.Auth.Services.Request;
 using SF.Common.DataAccess.Interface;
 using SF.Common.Repositories.Interfaces;
-using SF.Common.Security;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Services;
 using SF.Common.Services.Exceptions;
-using SF.Common.Settings;
 using SF.Common.Settings.Repositories.Interfaces;
 using System;
 

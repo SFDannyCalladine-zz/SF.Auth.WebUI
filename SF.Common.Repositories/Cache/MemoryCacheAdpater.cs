@@ -12,8 +12,6 @@ namespace SF.Auth.Repositories.Cache
             _memoryCache = memoryCache;
         }
 
-        #region Public Methods
-
         public T Retrieve<T>(string key)
         {
             var itemStored = _memoryCache.Get<T>(key);
@@ -30,7 +28,5 @@ namespace SF.Auth.Repositories.Cache
         {
             _memoryCache.Set(key, data);
         }
-
-        #endregion Public Methods
     }
 }

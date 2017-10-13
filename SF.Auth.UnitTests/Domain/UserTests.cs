@@ -10,91 +10,9 @@ namespace SF.Auth.UnitTests.Domain
     [TestFixture]
     public class UserTests
     {
-        #region Private Fields
-
-        private User _user;
-        private ForgottenPassword _forgottenPassword;
-
         private const string ForgottenPasswordGuid = "d95eb2f3-d9fb-4143-b046-f9cc34491f65";
-
-        #endregion Private Fields
-
-        #region Public Methods
-
-        [Test]
-        public void IsValidKeyFalseDoesNotExistTest()
-        {
-            var result = _user.IsValidKey(new Guid(ForgottenPasswordGuid), 5);
-
-            Assert.AreEqual(false, result);
-        }
-
-        [Test]
-        public void IsValidKeyFalseDeactivatedTest()
-        {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-            _forgottenPassword.Deactivate();
-
-            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
-
-            Assert.AreEqual(false, result);
-        }
-
-        [Test]
-        public void IsValidKeyFalseUsedTest()
-        {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-            _forgottenPassword.Use(5);
-
-            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
-
-            Assert.AreEqual(false, result);
-        }
-
-        [Test]
-        public void IsValidKeyFalseExpiredTest()
-        {
-            _forgottenPassword = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
-
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-            Thread.Sleep(2000);
-
-            var result = _user.IsValidKey(_forgottenPassword.Key, 0);
-
-            Assert.AreEqual(false, result);
-        }
-
-        [Test]
-        public void IsValidKeyTrueTest()
-        {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-
-            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
-
-            Assert.AreEqual(true, result);
-        }
-
-        [Test]
-        public void AddPasswordRequestSuccessfulHasOtherActiveResetRequestsTest()
-        {
-            var firstRequest = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
-            _user.AddPasswordResetRequest(firstRequest, 5);
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-
-            Assert.IsNotEmpty(_user.ForgottenPasswords);
-            Assert.Contains(firstRequest, _user.ForgottenPasswords.ToList());
-            Assert.Contains(_forgottenPassword, _user.ForgottenPasswords.ToList());
-            Assert.AreEqual(true, firstRequest.Used);
-        }
-
-        [Test]
-        public void AddPasswordRequestSuccessfulTest()
-        {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-
-            Assert.IsNotEmpty(_user.ForgottenPasswords);
-            Assert.Contains(_forgottenPassword, _user.ForgottenPasswords.ToList());
-        }
+        private ForgottenPassword _forgottenPassword;
+        private User _user;
 
         [Test]
         public void AddPasswordRequestDomainValidationExceptionDeactivatedTest()
@@ -140,30 +58,25 @@ namespace SF.Auth.UnitTests.Domain
         }
 
         [Test]
-        public void ConstructorEmailAddressDomainValidationExceptionNullTest()
+        public void AddPasswordRequestSuccessfulHasOtherActiveResetRequestsTest()
         {
-            Assert.Throws<DomainValidationException>(() =>
-            {
-                _user = new User(Guid.NewGuid(), "Name", null, "Password");
-            });
+            var firstRequest = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
+            _user.AddPasswordResetRequest(firstRequest, 5);
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+
+            Assert.IsNotEmpty(_user.ForgottenPasswords);
+            Assert.Contains(firstRequest, _user.ForgottenPasswords.ToList());
+            Assert.Contains(_forgottenPassword, _user.ForgottenPasswords.ToList());
+            Assert.AreEqual(true, firstRequest.Used);
         }
 
         [Test]
-        public void ConstructorNameDomainValidationExceptionNullTest()
+        public void AddPasswordRequestSuccessfulTest()
         {
-            Assert.Throws<DomainValidationException>(() =>
-            {
-                _user = new User(Guid.NewGuid(), null, "EmailAddress", "Password");
-            });
-        }
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
 
-        [Test]
-        public void ConstructorPasswordDomainValidationExceptionNullTest()
-        {
-            Assert.Throws<DomainValidationException>(() =>
-            {
-                _user = new User(Guid.NewGuid(), "Name", "EmailAddress", null);
-            });
+            Assert.IsNotEmpty(_user.ForgottenPasswords);
+            Assert.Contains(_forgottenPassword, _user.ForgottenPasswords.ToList());
         }
 
         [Test]
@@ -172,6 +85,15 @@ namespace SF.Auth.UnitTests.Domain
             Assert.Throws<DomainValidationException>(() =>
             {
                 _user = new User(Guid.NewGuid(), "Name", string.Empty, "Password");
+            });
+        }
+
+        [Test]
+        public void ConstructorEmailAddressDomainValidationExceptionNullTest()
+        {
+            Assert.Throws<DomainValidationException>(() =>
+            {
+                _user = new User(Guid.NewGuid(), "Name", null, "Password");
             });
         }
 
@@ -185,6 +107,15 @@ namespace SF.Auth.UnitTests.Domain
         }
 
         [Test]
+        public void ConstructorNameDomainValidationExceptionNullTest()
+        {
+            Assert.Throws<DomainValidationException>(() =>
+            {
+                _user = new User(Guid.NewGuid(), null, "EmailAddress", "Password");
+            });
+        }
+
+        [Test]
         public void ConstructorPasswordDomainValidationExceptionEmptyTest()
         {
             Assert.Throws<DomainValidationException>(() =>
@@ -194,14 +125,23 @@ namespace SF.Auth.UnitTests.Domain
         }
 
         [Test]
+        public void ConstructorPasswordDomainValidationExceptionNullTest()
+        {
+            Assert.Throws<DomainValidationException>(() =>
+            {
+                _user = new User(Guid.NewGuid(), "Name", "EmailAddress", null);
+            });
+        }
+
+        [Test]
         public void ConstructorSuccessfulTest()
         {
             var guid = Guid.NewGuid();
 
             var user = new User(
-                guid, 
-                "Name", 
-                "EmailAddress", 
+                guid,
+                "Name",
+                "EmailAddress",
                 "Password");
 
             Assert.AreEqual(0, user.UserId);
@@ -214,24 +154,64 @@ namespace SF.Auth.UnitTests.Domain
             Assert.IsEmpty(user.ForgottenPasswords);
         }
 
+        [Test]
+        public void IsValidKeyFalseDeactivatedTest()
+        {
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+            _forgottenPassword.Deactivate();
+
+            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void IsValidKeyFalseDoesNotExistTest()
+        {
+            var result = _user.IsValidKey(new Guid(ForgottenPasswordGuid), 5);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void IsValidKeyFalseExpiredTest()
+        {
+            _forgottenPassword = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
+
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+            Thread.Sleep(2000);
+
+            var result = _user.IsValidKey(_forgottenPassword.Key, 0);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void IsValidKeyFalseUsedTest()
+        {
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+            _forgottenPassword.Use(5);
+
+            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void IsValidKeyTrueTest()
+        {
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+
+            var result = _user.IsValidKey(_forgottenPassword.Key, 5);
+
+            Assert.AreEqual(true, result);
+        }
+
         [SetUp]
         public void SetUp()
         {
             _user = new User(Guid.NewGuid(), "Name", "EmailAddress", "Password");
             _forgottenPassword = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
-        }
-
-        [Test]
-        public void UpdatePasswordWithKeySuccessfulTest()
-        {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-            _user.UpdatePasswordWithKey(_forgottenPassword.Key, 5, "Password2");
-
-            var result = _forgottenPassword.IsValid(5);
-            var validateResult = _user.ValidatePassword("Password2");
-
-            Assert.AreEqual(false, result);
-            Assert.AreEqual(true, validateResult);
         }
 
         [Test]
@@ -250,14 +230,11 @@ namespace SF.Auth.UnitTests.Domain
         }
 
         [Test]
-        public void UpdatePasswordWithKeyDomainValidationExceptionUsedTest()
+        public void UpdatePasswordWithKeyDomainValidationExceptionDoesNotExistTest()
         {
-            _user.AddPasswordResetRequest(_forgottenPassword, 5);
-            _forgottenPassword.Use(5);
-
             Assert.Throws<DomainValidationException>(() =>
             {
-                _user.UpdatePasswordWithKey(_forgottenPassword.Key, 5, "Password2");
+                _user.UpdatePasswordWithKey(new Guid(ForgottenPasswordGuid), 5, "Password2");
             });
 
             var validateResult = _user.ValidatePassword("Password2");
@@ -282,22 +259,38 @@ namespace SF.Auth.UnitTests.Domain
         }
 
         [Test]
-        public void UpdatePasswordWithKeyDomainValidationExceptionDoesNotExistTest()
+        public void UpdatePasswordWithKeyDomainValidationExceptionUsedTest()
         {
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+            _forgottenPassword.Use(5);
+
             Assert.Throws<DomainValidationException>(() =>
             {
-                _user.UpdatePasswordWithKey(new Guid(ForgottenPasswordGuid), 5, "Password2");
+                _user.UpdatePasswordWithKey(_forgottenPassword.Key, 5, "Password2");
             });
 
             var validateResult = _user.ValidatePassword("Password2");
             Assert.AreEqual(false, validateResult);
         }
 
+        [Test]
+        public void UpdatePasswordWithKeySuccessfulTest()
+        {
+            _user.AddPasswordResetRequest(_forgottenPassword, 5);
+            _user.UpdatePasswordWithKey(_forgottenPassword.Key, 5, "Password2");
+
+            var result = _forgottenPassword.IsValid(5);
+            var validateResult = _user.ValidatePassword("Password2");
+
+            Assert.AreEqual(false, result);
+            Assert.AreEqual(true, validateResult);
+        }
+
         [TestCase("Password", "Password", true, TestName = "VerifyPasswordTestSuccessfulVerify")]
         [TestCase("Password1", "Password", false, TestName = "VerifyPasswordTestFailedVerify")]
         public void VerifyPasswordTest(
-            string password, 
-            string passwordToTry, 
+            string password,
+            string passwordToTry,
             bool expectedResult)
         {
             _user = new User(
@@ -310,7 +303,5 @@ namespace SF.Auth.UnitTests.Domain
 
             Assert.AreEqual(expectedResult, result);
         }
-
-        #endregion Public Methods
     }
 }

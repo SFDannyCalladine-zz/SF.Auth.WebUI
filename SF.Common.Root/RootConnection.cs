@@ -11,21 +11,21 @@ namespace SF.Common.Root
 
         public string EncryptedConnectionString { get; private set; }
 
-        protected RootConnection()
-        {
-        }
-
         public RootConnection(
             Guid connectionGuid,
             string encryptedConnectionString)
         {
-            if(string.IsNullOrWhiteSpace(encryptedConnectionString))
+            if (string.IsNullOrWhiteSpace(encryptedConnectionString))
             {
                 throw new DomainValidationException(nameof(encryptedConnectionString), "Encrypted Connection String can not be null or empty.");
             }
 
             ConnectionGuid = connectionGuid;
             EncryptedConnectionString = encryptedConnectionString;
+        }
+
+        protected RootConnection()
+        {
         }
     }
 }

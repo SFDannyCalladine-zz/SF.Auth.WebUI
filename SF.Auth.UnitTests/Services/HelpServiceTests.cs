@@ -17,19 +17,59 @@ namespace SF.Auth.UnitTests.Services
     {
         private Mock<IHelpRepository> _helpRepoMock;
 
+        private HelpService _helpService;
         private Mock<IMapper> _mapperMock;
 
-        private HelpService _helpService;
-
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void GetAllLinksExceptionTest()
         {
-            _helpRepoMock = new Mock<IHelpRepository>();
-            _mapperMock = new Mock<IMapper>();
+            _helpRepoMock.Setup(x => x.GetAllLinks()).Throws<Exception>();
 
-            _helpService = new HelpService(
-                _helpRepoMock.Object,
-                _mapperMock.Object);
+            var response = _helpService.GetAllLinks();
+
+            _mapperMock.Verify(x => x.Map<IList<HelpLinkDto>>(It.IsAny<IList<HelpLink>>()), Times.Never);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(ResponseCode.ServerError, response.Code);
+            Assert.IsNotEmpty(response.ErrorMessage);
+            Assert.IsNull(response.Entity);
+        }
+
+        [Test]
+        public void GetAllLinksSuccessfulMultipleTest()
+        {
+            var helpLink1 = new HelpLink("Url1", "Text1", 1);
+            var helpLink2 = new HelpLink("Url2", "Text2", 2);
+            var helpLinks = new List<HelpLink> { helpLink1, helpLink2 };
+
+            var helpLinkDto1 = new HelpLinkDto
+            {
+                Url = "Url1",
+                LinkText = "Text1",
+                Order = 1
+            };
+
+            var helpLinkDto2 = new HelpLinkDto
+            {
+                Url = "Url2",
+                LinkText = "Text2",
+                Order = 2
+            };
+
+            var helpLinkDtos = new List<HelpLinkDto> { helpLinkDto1, helpLinkDto2 };
+
+            _helpRepoMock.Setup(x => x.GetAllLinks()).Returns(helpLinks);
+            _mapperMock.Setup(x => x.Map<IList<HelpLinkDto>>(helpLinks)).Returns(helpLinkDtos);
+
+            var response = _helpService.GetAllLinks();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(ResponseCode.Success, response.Code);
+            Assert.IsEmpty(response.ErrorMessage);
+            Assert.IsNotNull(response.Entity);
+            Assert.AreEqual(2, response.Entity.Count);
+            Assert.Contains(helpLinkDto1, response.Entity.ToList());
+            Assert.Contains(helpLinkDto2, response.Entity.ToList());
         }
 
         [Test]
@@ -77,56 +117,15 @@ namespace SF.Auth.UnitTests.Services
             Assert.Contains(helpLinkDto, response.Entity.ToList());
         }
 
-        [Test]
-        public void GetAllLinksSuccessfulMultipleTest()
+        [SetUp]
+        public void SetUp()
         {
-            var helpLink1 = new HelpLink("Url1", "Text1", 1);
-            var helpLink2 = new HelpLink("Url2", "Text2", 2);
-            var helpLinks = new List<HelpLink> { helpLink1, helpLink2 };
+            _helpRepoMock = new Mock<IHelpRepository>();
+            _mapperMock = new Mock<IMapper>();
 
-            var helpLinkDto1 = new HelpLinkDto
-            {
-                Url = "Url1",
-                LinkText = "Text1",
-                Order = 1
-            };
-
-            var helpLinkDto2 = new HelpLinkDto
-            {
-                Url = "Url2",
-                LinkText = "Text2",
-                Order = 2
-            };
-
-            var helpLinkDtos = new List<HelpLinkDto> { helpLinkDto1, helpLinkDto2 };
-
-            _helpRepoMock.Setup(x => x.GetAllLinks()).Returns(helpLinks);
-            _mapperMock.Setup(x => x.Map<IList<HelpLinkDto>>(helpLinks)).Returns(helpLinkDtos);
-
-            var response = _helpService.GetAllLinks();
-
-            Assert.IsNotNull(response);
-            Assert.AreEqual(ResponseCode.Success, response.Code);
-            Assert.IsEmpty(response.ErrorMessage);
-            Assert.IsNotNull(response.Entity);
-            Assert.AreEqual(2, response.Entity.Count);
-            Assert.Contains(helpLinkDto1, response.Entity.ToList());
-            Assert.Contains(helpLinkDto2, response.Entity.ToList());
-        }
-
-        [Test]
-        public void GetAllLinksExceptionTest()
-        {
-            _helpRepoMock.Setup(x => x.GetAllLinks()).Throws<Exception>();
-
-            var response = _helpService.GetAllLinks();
-
-            _mapperMock.Verify(x => x.Map<IList<HelpLinkDto>>(It.IsAny<IList<HelpLink>>()), Times.Never);
-
-            Assert.IsNotNull(response);
-            Assert.AreEqual(ResponseCode.ServerError, response.Code);
-            Assert.IsNotEmpty(response.ErrorMessage);
-            Assert.IsNull(response.Entity);
+            _helpService = new HelpService(
+                _helpRepoMock.Object,
+                _mapperMock.Object);
         }
     }
 }

@@ -9,15 +9,8 @@ namespace SF.Auth.UnitTests.Domain
     [TestFixture]
     public class ForgottenPasswordTests
     {
-        #region Private Fields
-
-        private ForgottenPassword _forgottenPassword;
-
         private const string ForgottenPasswordGuid = "d95eb2f3-d9fb-4143-b046-f9cc34491f65";
-
-        #endregion Private Fields
-
-        #region Public Methods
+        private ForgottenPassword _forgottenPassword;
 
         [Test]
         public void ConstructorSuccessfulTest()
@@ -27,6 +20,14 @@ namespace SF.Auth.UnitTests.Domain
             Assert.IsNotNull(_forgottenPassword.Key);
             Assert.GreaterOrEqual(DateTime.Now, _forgottenPassword.Created);
             Assert.AreEqual(false, _forgottenPassword.Used);
+        }
+
+        [Test]
+        public void DeactivateTest()
+        {
+            _forgottenPassword.Deactivate();
+
+            Assert.AreEqual(true, _forgottenPassword.Used);
         }
 
         [Test]
@@ -88,26 +89,10 @@ namespace SF.Auth.UnitTests.Domain
             Assert.AreEqual(true, result);
         }
 
-        [Test]
-        public void DeactivateTest()
-        {
-            _forgottenPassword.Deactivate();
-
-            Assert.AreEqual(true, _forgottenPassword.Used);
-        }
-
         [SetUp]
         public void SetUp()
         {
             _forgottenPassword = new ForgottenPassword(new Guid(ForgottenPasswordGuid));
-        }
-
-        [Test]
-        public void UseSuccessfulTest()
-        {
-            _forgottenPassword.Use(5);
-
-            Assert.AreEqual(true, _forgottenPassword.Used);
         }
 
         [Test]
@@ -144,6 +129,12 @@ namespace SF.Auth.UnitTests.Domain
             });
         }
 
-        #endregion Public Methods
+        [Test]
+        public void UseSuccessfulTest()
+        {
+            _forgottenPassword.Use(5);
+
+            Assert.AreEqual(true, _forgottenPassword.Used);
+        }
     }
 }
