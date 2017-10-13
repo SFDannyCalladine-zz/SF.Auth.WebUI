@@ -7,15 +7,15 @@ namespace SF.Auth.Accounts
     {
         public DateTime Created { get; private set; }
 
-        public string Key { get; private set; }
+        public Guid Key { get; private set; }
 
         public bool Used { get; private set; }
 
         public int UserId { get; private set; }
 
-        public ForgottenPassword()
+        public ForgottenPassword(Guid key)
         {
-            Key = Guid.NewGuid().ToString();
+            Key = key;
             Created = DateTime.Now;
             Used = false;
             UserId = 0;

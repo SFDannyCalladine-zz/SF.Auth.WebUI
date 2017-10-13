@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SF.Common.Domain.Exceptions;
+using System;
 
 namespace SF.Common.Root
 {
@@ -12,6 +13,19 @@ namespace SF.Common.Root
 
         protected RootConnection()
         {
+        }
+
+        public RootConnection(
+            Guid connectionGuid,
+            string encryptedConnectionString)
+        {
+            if(string.IsNullOrWhiteSpace(encryptedConnectionString))
+            {
+                throw new DomainValidationException(nameof(encryptedConnectionString), "Encrypted Connection String can not be null or empty.");
+            }
+
+            ConnectionGuid = connectionGuid;
+            EncryptedConnectionString = encryptedConnectionString;
         }
     }
 }

@@ -40,32 +40,7 @@ namespace SF.Auth.Services
         {
             try
             {
-                var connection = _rootRepository.FindConnectionByEmail(request.Email);
-
-                if (connection == null)
-                {
-                    throw new ServiceException(ResponseCode.NotFound, "Connection can not be found for provided Username.");
-                }
-
-                var encryptionSaltSetting = _settingRepository.FindSettingAsString(SettingName.EncryptionSalt);
-                var encryptionKeySetting = _settingRepository.FindSettingAsString(SettingName.EncryptionKey);
-
-                if (string.IsNullOrWhiteSpace(encryptionSaltSetting))
-                {
-                    throw new ServiceException(ResponseCode.NotFound, "Encryption Salt can not be found.");
-                }
-
-                if (string.IsNullOrWhiteSpace(encryptionKeySetting))
-                {
-                    throw new ServiceException(ResponseCode.NotFound, "Encryption Key can not be found.");
-                }
-
-                var connectionString =
-                    new Encryption(
-                        encryptionKeySetting,
-                        encryptionSaltSetting,
-                        connection.ConnectionGuid.ToByteArray())
-                    .DecryptString(connection.EncryptedConnectionString);
+                var connectionString = GetConnectionStringByEmail(request.Email);
 
                 _userRepository = new UserRepository(_customerContextFactory.CreateDbContext(connectionString));
 

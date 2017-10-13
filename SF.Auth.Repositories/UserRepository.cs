@@ -21,7 +21,7 @@ namespace SF.Auth.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public User FindByKey(string key)
+        public User FindByKey(Guid key)
         {
             return _context
                 .Users

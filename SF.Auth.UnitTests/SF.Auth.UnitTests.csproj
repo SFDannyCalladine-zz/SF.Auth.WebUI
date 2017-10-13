@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="Moq" Version="4.7.142" />
+    <PackageReference Include="NUnit" Version="3.8.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
+    <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SF.Auth.Accounts\SF.Auth.Accounts.csproj" />
+    <ProjectReference Include="..\SF.Auth.DataTransferObjects\SF.Auth.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\SF.Auth.Repositories\SF.Auth.Repositories.csproj" />
+    <ProjectReference Include="..\SF.Auth.Services\SF.Auth.Services.csproj" />
+    <ProjectReference Include="..\SF.Common.ServiceModels\SF.Common.ServiceModels.csproj" />
+  </ItemGroup>
+
+</Project>

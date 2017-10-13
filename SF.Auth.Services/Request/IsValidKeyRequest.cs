@@ -5,10 +5,10 @@ namespace SF.Auth.Services.Request
 {
     public class IsValidKeyRequest : BaseRequest
     {
-        public string Key { get; private set; }
+        public Guid Key { get; private set; }
 
         public IsValidKeyRequest(
-            string key,
+            Guid key,
             Guid userGuid)
             : base(userGuid)
         {

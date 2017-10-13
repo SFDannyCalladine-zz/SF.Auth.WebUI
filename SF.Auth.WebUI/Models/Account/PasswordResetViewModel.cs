@@ -8,7 +8,7 @@ namespace SF.Auth.WebUI.Models.Account
         [Compare("NewPassword", ErrorMessage = "Confirm New Password must be the same as New Password")]
         public string ConfirmNewPassword { get; set; }
 
-        public string Key { get; set; }
+        public Guid Key { get; set; }
 
         [Required(ErrorMessage = "Please enter a New Password")]
         //[IsValidPassword(ErrorMessage = "Please enter a valid Password")]
@@ -21,7 +21,7 @@ namespace SF.Auth.WebUI.Models.Account
         }
 
         public PasswordResetViewModel(
-            string key,
+            Guid key,
             Guid userGuid)
         {
             Key = key;

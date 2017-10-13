@@ -6,9 +6,11 @@ namespace SF.Auth.DataAccess
 {
     public class dbCustomerDatabase : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         private readonly string _connectionString;
+
+        protected dbCustomerDatabase() { }
 
         public dbCustomerDatabase(string connectionString)
         {

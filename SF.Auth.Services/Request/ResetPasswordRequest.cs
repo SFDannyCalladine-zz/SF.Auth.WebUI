@@ -5,12 +5,12 @@ namespace SF.Auth.Services.Request
 {
     public class ResetPasswordRequest : BaseRequest
     {
-        public string Key { get; private set; }
+        public Guid Key { get; private set; }
 
         public string Password { get; private set; }
 
         public ResetPasswordRequest(
-            string key,
+            Guid key,
             string password,
             Guid userGuid)
             : base(userGuid)

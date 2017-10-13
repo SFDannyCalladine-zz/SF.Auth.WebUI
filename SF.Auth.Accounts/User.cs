@@ -11,6 +11,7 @@ namespace SF.Auth.Accounts
         public string Email { get; private set; }
 
         public virtual IList<ForgottenPassword> ForgottenPasswords { get; private set; }
+
         public string Name { get; private set; }
 
         public string Password { get; private set; }
@@ -21,18 +22,50 @@ namespace SF.Auth.Accounts
 
         protected User()
         {
+            UserId = 0;
+            ForgottenPasswords = new List<ForgottenPassword>();
         }
 
-        public void AddPasswordResetRequest(ForgottenPassword passwordResetRequest)
+        public User(
+            Guid userGuid,
+            string name,
+            string emailAddress,
+            string password)
+            : this()
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new DomainValidationException(nameof(name), "Name can not be null or empty.");
+            }
+
+            if (string.IsNullOrWhiteSpace(emailAddress))
+            {
+                throw new DomainValidationException(nameof(emailAddress), "Email Address can not be null or empty.");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new DomainValidationException(nameof(password), "Password can not be null or empty.");
+            }
+
+            UserGuid = userGuid;
+            Name = name;
+            Email = emailAddress;
+            Password = Hashing.Hash(password);
+        }
+
+        public void AddPasswordResetRequest(
+            ForgottenPassword passwordResetRequest, 
+            int expiryLength)
         {
             if (passwordResetRequest == null)
             {
                 throw new DomainValidationException(nameof(passwordResetRequest), "Password Reset Request can not be null.");
             }
 
-            if (passwordResetRequest.Used)
+            if(!passwordResetRequest.IsValid(expiryLength))
             {
-                throw new DomainValidationException("Can not add used request.");
+                throw new DomainValidationException("Can not add invalid request.");
             }
 
             foreach (var request in ForgottenPasswords.Where(x => !x.Used))
@@ -43,7 +76,7 @@ namespace SF.Auth.Accounts
             ForgottenPasswords.Add(passwordResetRequest);
         }
 
-        public bool IsValidKey(string key, int expiryLength)
+        public bool IsValidKey(Guid key, int expiryLength)
         {
             var request = FindPasswordResetRequest(key);
 
@@ -60,7 +93,7 @@ namespace SF.Auth.Accounts
             return true;
         }
 
-        public void UpdatePassword(string newPassword)
+        private void UpdatePassword(string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword))
             {
@@ -70,8 +103,15 @@ namespace SF.Auth.Accounts
             Password = Hashing.Hash(newPassword);
         }
 
-        public void UsePasswordResetRequest(string key, int expiryLength)
+        public void UpdatePasswordWithKey(Guid key, int expiryLength, string password)
         {
+            var valid = IsValidKey(key, expiryLength);
+
+            if(!valid)
+            {
+                throw new DomainValidationException("Password Reset Request is not valid.");
+            }
+
             var request = FindPasswordResetRequest(key);
 
             if (request == null)
@@ -80,6 +120,8 @@ namespace SF.Auth.Accounts
             }
 
             request.Use(expiryLength);
+
+            UpdatePassword(password);
         }
 
         public bool ValidatePassword(string passwordToValidate)
@@ -87,7 +129,7 @@ namespace SF.Auth.Accounts
             return Hashing.Validate(passwordToValidate, Password);
         }
 
-        private ForgottenPassword FindPasswordResetRequest(string key)
+        private ForgottenPassword FindPasswordResetRequest(Guid key)
         {
             return ForgottenPasswords.FirstOrDefault(x => x.Key == key);
         }

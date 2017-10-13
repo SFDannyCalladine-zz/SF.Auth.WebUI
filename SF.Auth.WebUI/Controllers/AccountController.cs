@@ -115,14 +115,8 @@ namespace SF.Auth.WebUI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult PasswordReset(string key, Guid userGuid)
+        public ActionResult PasswordReset(Guid key, Guid userGuid)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                //this.AddErrorMessage("The provided link is no longer valid, please request a new one.");
-                return RedirectToAction("requestpasswordreset", "login");
-            }
-
             var response = _userService.IsValidKey(
                 new IsValidKeyRequest(
                     key,

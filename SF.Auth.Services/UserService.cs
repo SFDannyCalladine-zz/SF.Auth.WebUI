@@ -1,4 +1,5 @@
 ﻿using SF.Auth.Accounts;
+using SF.Auth.DataTransferObjects.Account;
 using SF.Auth.Repositories;
 using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services.Interfaces;
@@ -56,7 +57,7 @@ namespace SF.Auth.Services
             }
         }
 
-        public Response RequestPasswordReset(RequestPasswordResetRequest request)
+        public Response<RequestPasswordResetDto> RequestPasswordReset(RequestPasswordResetRequest request)
         {
             try
             {
@@ -69,17 +70,25 @@ namespace SF.Auth.Services
                     throw new ServiceException(ResponseCode.NotFound, "Selected Agents does not exist.");
                 }
 
-                var passwordResetRequest = new ForgottenPassword();
+                var expiryLength = _settingRepository.FindSettingAsInt(SettingName.PasswordResetLength);
 
-                user.AddPasswordResetRequest(passwordResetRequest);
+                var passwordResetRequest = new ForgottenPassword(Guid.NewGuid());
+
+                user.AddPasswordResetRequest(passwordResetRequest, expiryLength);
 
                 _userRepository.Save();
 
-                return new Response(ResponseCode.Success);
+                var dto = new RequestPasswordResetDto
+                {
+                    UserGuid = user.UserGuid,
+                    Key = passwordResetRequest.Key
+                };
+
+                return new Response<RequestPasswordResetDto>(dto);
             }
             catch (Exception e)
             {
-                return HandleException(e);
+                return HandleException<RequestPasswordResetDto>(e);
             }
         }
 
@@ -98,16 +107,10 @@ namespace SF.Auth.Services
 
                 var expiryLength = _settingRepository.FindSettingAsInt(SettingName.PasswordResetLength);
 
-                var valid = user.IsValidKey(request.Key, expiryLength);
-
-                if (!valid)
-                {
-                    throw new ServiceException(ResponseCode.ValidationError, "Selected Key is not valid.");
-                }
-
-                user.UpdatePassword(request.Password);
-
-                user.UsePasswordResetRequest(request.Key, expiryLength);
+                user.UpdatePasswordWithKey(
+                    request.Key, 
+                    expiryLength, 
+                    request.Password);
 
                 _userRepository.Save();
 
