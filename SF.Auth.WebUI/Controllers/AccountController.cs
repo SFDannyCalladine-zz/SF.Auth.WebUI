@@ -83,9 +83,7 @@ namespace SF.Auth.WebUI.Controllers
             await HttpContext.SignInAsync(
                 user.UserGuid.ToString(),
                 user.Name,
-                props,
-                new Claim("userid", user.UserId.ToString()),
-                new Claim(JwtClaimTypes.Email, user.Email));
+                props);
 
             // make sure the returnUrl is still valid, and if yes - redirect back to authorize endpoint
             if (_interaction.IsValidReturnUrl(model.ReturnUrl))

@@ -11,6 +11,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(x => x.ReturnUrl)
+                    @Html.CleanValidationSummary(new { @class = "alert alert-danger col-md-8 col-md-offset-2 login-warning" })
                     <div class="form-group @Html.IsValid(x => x.Username, "has-error")">
                         <div class="col-md-8 col-md-offset-2">
                             @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Email Address" })

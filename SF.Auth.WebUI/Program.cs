@@ -13,20 +13,8 @@ namespace SF.Auth.WebUI
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Any, 5000);
-
-                    options.Listen(IPAddress.Any, 44329, listenOptions =>
-                    {
-                        //listenOptions.UseHttps("certificate.pfx", "BlinkyPlant18");
-                        listenOptions.UseHttps(new HttpsConnectionAdapterOptions
-                        {
-                            ServerCertificate = new X509Certificate2("certificate.pfx", "BlinkyPlant18"),
-                            ClientCertificateMode = ClientCertificateMode.NoCertificate
-                        });
-                    });
-                })
+                .UseKestrel()
+                .UseUrls("http://localhost:5000")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

@@ -11,13 +11,13 @@ namespace SF.Common.MVC
     {
         #region Public Methods
 
-        public static HtmlString CleanValidationSummary(
+        public static IHtmlContent CleanValidationSummary(
             this IHtmlHelper htmlHelper,
             object htmlAttributes)
         {
             if (htmlHelper.ViewContext.ViewData.ModelState.Any(x => string.IsNullOrWhiteSpace(x.Key)))
             {
-                return new HtmlString(htmlHelper.ValidationSummary(true, string.Empty, htmlAttributes).ToString());
+                return htmlHelper.ValidationSummary(true, string.Empty, htmlAttributes);
             }
 
             return null;
