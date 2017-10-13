@@ -6,12 +6,22 @@ namespace SF.Auth.DataAccess
 {
     public class dbHelp : DbContext
     {
+        #region Public Properties
+
         public DbSet<HelpLink> HelpLinks { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public dbHelp(DbContextOptions<dbHelp> options)
             : base(options)
         {
         }
+
+        #endregion Public Constructors
+
+        #region Protected Methods
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,5 +29,7 @@ namespace SF.Auth.DataAccess
 
             base.OnModelCreating(builder);
         }
+
+        #endregion Protected Methods
     }
 }

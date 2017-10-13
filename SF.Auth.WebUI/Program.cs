@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 
 namespace SF.Auth.WebUI
 {
     public class Program
     {
+        #region Public Methods
+
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options =>
@@ -34,5 +36,7 @@ namespace SF.Auth.WebUI
         {
             BuildWebHost(args).Run();
         }
+
+        #endregion Public Methods
     }
 }

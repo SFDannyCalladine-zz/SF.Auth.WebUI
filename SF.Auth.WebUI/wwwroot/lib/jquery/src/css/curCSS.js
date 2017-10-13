@@ -1,65 +1,63 @@
-define( [
-	"../core",
-	"./var/rnumnonpx",
-	"./var/rmargin",
-	"./var/getStyles",
-	"./support",
-	"../selector" // Get jQuery.contains
-], function( jQuery, rnumnonpx, rmargin, getStyles, support ) {
+define([
+    "../core",
+    "./var/rnumnonpx",
+    "./var/rmargin",
+    "./var/getStyles",
+    "./support",
+    "../selector" // Get jQuery.contains
+], function (jQuery, rnumnonpx, rmargin, getStyles, support) {
+    "use strict";
 
-"use strict";
+    function curCSS(elem, name, computed) {
+        var width, minWidth, maxWidth, ret,
 
-function curCSS( elem, name, computed ) {
-	var width, minWidth, maxWidth, ret,
+            // Support: Firefox 51+
+            // Retrieving style before computed somehow
+            // fixes an issue with getting wrong values
+            // on detached elements
+            style = elem.style;
 
-		// Support: Firefox 51+
-		// Retrieving style before computed somehow
-		// fixes an issue with getting wrong values
-		// on detached elements
-		style = elem.style;
+        computed = computed || getStyles(elem);
 
-	computed = computed || getStyles( elem );
+        // getPropertyValue is needed for:
+        //   .css('filter') (IE 9 only, #12537)
+        //   .css('--customProperty) (#3144)
+        if (computed) {
+            ret = computed.getPropertyValue(name) || computed[name];
 
-	// getPropertyValue is needed for:
-	//   .css('filter') (IE 9 only, #12537)
-	//   .css('--customProperty) (#3144)
-	if ( computed ) {
-		ret = computed.getPropertyValue( name ) || computed[ name ];
+            if (ret === "" && !jQuery.contains(elem.ownerDocument, elem)) {
+                ret = jQuery.style(elem, name);
+            }
 
-		if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
-			ret = jQuery.style( elem, name );
-		}
+            // A tribute to the "awesome hack by Dean Edwards"
+            // Android Browser returns percentage for some values,
+            // but width seems to be reliably pixels.
+            // This is against the CSSOM draft spec:
+            // https://drafts.csswg.org/cssom/#resolved-values
+            if (!support.pixelMarginRight() && rnumnonpx.test(ret) && rmargin.test(name)) {
+                // Remember the original values
+                width = style.width;
+                minWidth = style.minWidth;
+                maxWidth = style.maxWidth;
 
-		// A tribute to the "awesome hack by Dean Edwards"
-		// Android Browser returns percentage for some values,
-		// but width seems to be reliably pixels.
-		// This is against the CSSOM draft spec:
-		// https://drafts.csswg.org/cssom/#resolved-values
-		if ( !support.pixelMarginRight() && rnumnonpx.test( ret ) && rmargin.test( name ) ) {
+                // Put in the new values to get a computed value out
+                style.minWidth = style.maxWidth = style.width = ret;
+                ret = computed.width;
 
-			// Remember the original values
-			width = style.width;
-			minWidth = style.minWidth;
-			maxWidth = style.maxWidth;
+                // Revert the changed values
+                style.width = width;
+                style.minWidth = minWidth;
+                style.maxWidth = maxWidth;
+            }
+        }
 
-			// Put in the new values to get a computed value out
-			style.minWidth = style.maxWidth = style.width = ret;
-			ret = computed.width;
+        return ret !== undefined ?
 
-			// Revert the changed values
-			style.width = width;
-			style.minWidth = minWidth;
-			style.maxWidth = maxWidth;
-		}
-	}
+            // Support: IE <=9 - 11 only
+            // IE returns zIndex value as an integer.
+            ret + "" :
+            ret;
+    }
 
-	return ret !== undefined ?
-
-		// Support: IE <=9 - 11 only
-		// IE returns zIndex value as an integer.
-		ret + "" :
-		ret;
-}
-
-return curCSS;
-} );
+    return curCSS;
+});

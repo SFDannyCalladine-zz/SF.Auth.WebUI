@@ -5,12 +5,22 @@ namespace SF.Auth.Repositories.Cache
 {
     public class MemoryCacheAdpater : ICacheStorage
     {
+        #region Private Fields
+
         private readonly IMemoryCache _memoryCache;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public MemoryCacheAdpater(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public T Retrieve<T>(string key)
         {
@@ -28,5 +38,7 @@ namespace SF.Auth.Repositories.Cache
         {
             _memoryCache.Set(key, data);
         }
+
+        #endregion Public Methods
     }
 }

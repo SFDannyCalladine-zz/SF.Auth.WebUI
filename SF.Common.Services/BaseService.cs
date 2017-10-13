@@ -1,12 +1,14 @@
-﻿using SF.Common.Domain.Exceptions;
+﻿using System;
+using SF.Common.Domain.Exceptions;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Services.Exceptions;
-using System;
 
 namespace SF.Common.Services
 {
     public abstract class BaseService
     {
+        #region Protected Methods
+
         protected Response<T> HandleException<T>(Exception e)
         {
             if (e is DomainValidationException)
@@ -40,5 +42,7 @@ namespace SF.Common.Services
 
             return new Response(ResponseCode.ServerError, e.Message);
         }
+
+        #endregion Protected Methods
     }
 }

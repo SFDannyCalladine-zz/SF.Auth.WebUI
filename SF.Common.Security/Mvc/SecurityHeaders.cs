@@ -5,6 +5,8 @@ namespace SF.Common.Security.Mvc
 {
     public class SecurityHeaders : ActionFilterAttribute
     {
+        #region Public Methods
+
         public override void OnResultExecuting(ResultExecutingContext context)
         {
             var result = context.Result;
@@ -36,5 +38,7 @@ namespace SF.Common.Security.Mvc
                 }
             }
         }
+
+        #endregion Public Methods
     }
 }

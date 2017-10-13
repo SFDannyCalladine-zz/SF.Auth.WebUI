@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 
 namespace SF.Common.MVC
 {
     public static class ValidationHelper
     {
+        #region Public Methods
+
         public static HtmlString CleanValidationSummary(
             this IHtmlHelper htmlHelper,
             object htmlAttributes)
@@ -38,5 +40,7 @@ namespace SF.Common.MVC
 
             return new HtmlString(errorClass);
         }
+
+        #endregion Public Methods
     }
 }

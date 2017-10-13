@@ -6,6 +6,8 @@ namespace SF.Auth.Services.Mapping
 {
     public class UserMappingProfile : Profile
     {
+        #region Public Constructors
+
         public UserMappingProfile()
             : base()
         {
@@ -15,5 +17,7 @@ namespace SF.Auth.Services.Mapping
                 .ForMember(d => d.Name, s => s.MapFrom(x => x.Name))
                 .ForMember(d => d.Email, s => s.MapFrom(x => x.Email));
         }
+
+        #endregion Public Constructors
     }
 }

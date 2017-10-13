@@ -7,6 +7,8 @@ namespace SF.Auth.DataAccess.Mappings.Account
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users");
@@ -40,5 +42,7 @@ namespace SF.Auth.DataAccess.Mappings.Account
                 .WithOne()
                 .HasForeignKey(x => x.UserId);
         }
+
+        #endregion Public Methods
     }
 }

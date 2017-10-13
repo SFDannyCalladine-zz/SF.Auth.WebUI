@@ -5,6 +5,8 @@ namespace SF.Auth.WebUI.Data.Migrations.Setting
 {
     public partial class InitialMigration : Migration
     {
+        #region Protected Methods
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -32,5 +34,7 @@ namespace SF.Auth.WebUI.Data.Migrations.Setting
                     table.PrimaryKey("PK_Setting", x => x.SettingId);
                 });
         }
+
+        #endregion Protected Methods
     }
 }

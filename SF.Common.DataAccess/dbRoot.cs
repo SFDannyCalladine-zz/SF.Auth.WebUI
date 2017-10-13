@@ -6,12 +6,22 @@ namespace SF.Common.DataAccess
 {
     public class dbRoot : DbContext
     {
+        #region Public Properties
+
         public DbSet<RootConnection> Connections { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public dbRoot(DbContextOptions<dbRoot> options)
             : base(options)
         {
         }
+
+        #endregion Public Constructors
+
+        #region Protected Methods
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -21,5 +31,7 @@ namespace SF.Common.DataAccess
 
             base.OnModelCreating(builder);
         }
+
+        #endregion Protected Methods
     }
 }

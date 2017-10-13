@@ -4,6 +4,8 @@ namespace SF.Auth.Services.Mapping
 {
     public static class AutoMapperExtensions
     {
+        #region Public Methods
+
         public static IMappingExpression<TSource, TDestination> IgnoreAllUnmapped<TSource, TDestination>(
             this IMappingExpression<TSource, TDestination> expression)
         {
@@ -11,5 +13,7 @@ namespace SF.Auth.Services.Mapping
 
             return expression;
         }
+
+        #endregion Public Methods
     }
 }

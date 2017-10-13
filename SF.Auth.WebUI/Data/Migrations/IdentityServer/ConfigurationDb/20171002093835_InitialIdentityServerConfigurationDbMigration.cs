@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
 namespace SF.Auth.WebUI.Data.Migrations.IdentityServer.ConfigurationDb
 {
     public partial class InitialIdentityServerConfigurationDbMigration : Migration
     {
+        #region Protected Methods
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -530,5 +532,7 @@ namespace SF.Auth.WebUI.Data.Migrations.IdentityServer.ConfigurationDb
                 column: "Name",
                 unique: true);
         }
+
+        #endregion Protected Methods
     }
 }

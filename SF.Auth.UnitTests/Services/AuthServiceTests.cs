@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
@@ -14,15 +17,14 @@ using SF.Common.Security;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Settings;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SF.Auth.UnitTests.Services
 {
     [TestFixture]
     public class AuthServiceTests
     {
+        #region Private Fields
+
         private const string Key = "2013.mcw.24ge2$ed[@dysSD62Lpww#$";
         private const string Salt = "2013.mcw.suhg$^s68#7IUHd98$uw09i";
         private AuthService _authService;
@@ -37,6 +39,10 @@ namespace SF.Auth.UnitTests.Services
         private Mock<ISettingRepository> _settingRepoMock;
         private Mock<DbSet<User>> _userDbSetMock;
         private UserDto _userDto;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [SetUp]
         public void SetUp()
@@ -198,5 +204,7 @@ namespace SF.Auth.UnitTests.Services
             Assert.IsEmpty(response.ErrorMessage);
             Assert.AreEqual(_userDto, response.Entity);
         }
+
+        #endregion Public Methods
     }
 }

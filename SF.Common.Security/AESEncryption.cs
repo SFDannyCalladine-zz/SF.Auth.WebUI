@@ -7,10 +7,16 @@ namespace SF.Common.Security
 {
     internal class AESEncryption
     {
+        #region Private Fields
+
         private readonly RijndaelManaged _algorithm;
         private readonly ICryptoTransform _decryptorTransform;
         private readonly UTF8Encoding _encoder;
         private readonly ICryptoTransform _encryptorTransform;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         /// <param name="key">32 bytes</param>
         /// <param name="vector">16 bytes</param>
@@ -52,6 +58,10 @@ namespace SF.Common.Security
 
             derivedValue.Reset();
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public static byte[] GenerateKey()
         {
@@ -108,5 +118,7 @@ namespace SF.Common.Security
 
             return encryptedValue;
         }
+
+        #endregion Public Methods
     }
 }

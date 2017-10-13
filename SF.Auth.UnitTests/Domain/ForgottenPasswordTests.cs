@@ -1,16 +1,22 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Threading;
+using NUnit.Framework;
 using SF.Auth.Accounts;
 using SF.Common.Domain.Exceptions;
-using System;
-using System.Threading;
 
 namespace SF.Auth.UnitTests.Domain
 {
     [TestFixture]
     public class ForgottenPasswordTests
     {
+        #region Private Fields
+
         private const string ForgottenPasswordGuid = "d95eb2f3-d9fb-4143-b046-f9cc34491f65";
         private ForgottenPassword _forgottenPassword;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [Test]
         public void ConstructorSuccessfulTest()
@@ -136,5 +142,7 @@ namespace SF.Auth.UnitTests.Domain
 
             Assert.AreEqual(true, _forgottenPassword.Used);
         }
+
+        #endregion Public Methods
     }
 }

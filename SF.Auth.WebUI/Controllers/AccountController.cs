@@ -1,4 +1,7 @@
-﻿using IdentityModel;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using IdentityModel;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,18 +11,21 @@ using SF.Auth.Services.Interfaces;
 using SF.Auth.Services.Request;
 using SF.Auth.WebUI.Models.Account;
 using SF.Common.ServiceModels.Response;
-using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace SF.Auth.WebUI.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
+        #region Private Fields
+
         private readonly IAuthService _authService;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IUserService _userService;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public AccountController(
             IIdentityServerInteractionService interaction,
@@ -31,6 +37,10 @@ namespace SF.Auth.WebUI.Controllers
             _authService = authService;
             _userService = userService;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [HttpGet]
         [AllowAnonymous]
@@ -194,5 +204,7 @@ namespace SF.Auth.WebUI.Controllers
 
             return RedirectToAction("requestpasswordreset", "login");
         }
+
+        #endregion Public Methods
     }
 }

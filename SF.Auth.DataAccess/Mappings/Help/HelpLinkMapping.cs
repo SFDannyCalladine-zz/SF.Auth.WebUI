@@ -7,6 +7,8 @@ namespace SF.Auth.DataAccess.Mappings.Help
 {
     internal class HelpLinkMapping : IEntityTypeConfiguration<HelpLink>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<HelpLink> builder)
         {
             builder.ToTable("HelpLinks");
@@ -34,5 +36,7 @@ namespace SF.Auth.DataAccess.Mappings.Help
                 .HasColumnType(DatabaseType.TinyInt)
                 .IsRequired();
         }
+
+        #endregion Public Methods
     }
 }

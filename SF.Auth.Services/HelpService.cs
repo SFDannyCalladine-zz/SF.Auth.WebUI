@@ -1,19 +1,25 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using SF.Auth.DataTransferObjects.Help;
 using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services.Interfaces;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Services;
-using System;
-using System.Collections.Generic;
 
 namespace SF.Auth.Services
 {
     public class HelpService : BaseService, IHelpService
     {
+        #region Private Fields
+
         private readonly IHelpRepository _helpRepository;
 
         private readonly IMapper _mapper;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public HelpService(
             IHelpRepository helpRepository,
@@ -23,6 +29,10 @@ namespace SF.Auth.Services
 
             _mapper = mapper;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public Response<IList<HelpLinkDto>> GetAllLinks()
         {
@@ -39,5 +49,7 @@ namespace SF.Auth.Services
                 return HandleException<IList<HelpLinkDto>>(e);
             }
         }
+
+        #endregion Public Methods
     }
 }

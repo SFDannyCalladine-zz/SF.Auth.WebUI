@@ -5,6 +5,8 @@ namespace SF.Auth.WebUI.Models.Account
 {
     public class PasswordResetViewModel
     {
+        #region Public Properties
+
         [Compare("NewPassword", ErrorMessage = "Confirm New Password must be the same as New Password")]
         public string ConfirmNewPassword { get; set; }
 
@@ -15,6 +17,10 @@ namespace SF.Auth.WebUI.Models.Account
         public string NewPassword { get; set; }
 
         public Guid UserGuid { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public PasswordResetViewModel()
         {
@@ -27,5 +33,7 @@ namespace SF.Auth.WebUI.Models.Account
             Key = key;
             UserGuid = UserGuid;
         }
+
+        #endregion Public Constructors
     }
 }

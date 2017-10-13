@@ -4,6 +4,8 @@ namespace SF.Common.Domain.Exceptions
 {
     public class DomainValidationException : ArgumentException
     {
+        #region Public Constructors
+
         public DomainValidationException(
             string message)
             : base(message)
@@ -18,5 +20,7 @@ namespace SF.Common.Domain.Exceptions
                   paramName)
         {
         }
+
+        #endregion Public Constructors
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using SF.Auth.DataTransferObjects.Account;
 using SF.Auth.Repositories;
 using SF.Auth.Repositories.Interfaces;
@@ -10,16 +11,21 @@ using SF.Common.ServiceModels.Response;
 using SF.Common.Services;
 using SF.Common.Services.Exceptions;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
 
 namespace SF.Auth.Services
 {
     public class AuthService : RootService, IAuthService
     {
+        #region Private Fields
+
         private readonly IDbCustomerDatabaseFactory _customerContextFactory;
         private readonly IMapper _mapper;
 
         private IUserRepository _userRepository;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public AuthService(
             IRootRepository rootRepository,
@@ -33,6 +39,10 @@ namespace SF.Auth.Services
             _customerContextFactory = customerContextFactory;
             _mapper = mapper;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public Response<UserDto> ValidateUser(ValidateUserRequest request)
         {
@@ -65,5 +75,7 @@ namespace SF.Auth.Services
                 return HandleException<UserDto>(e);
             }
         }
+
+        #endregion Public Methods
     }
 }

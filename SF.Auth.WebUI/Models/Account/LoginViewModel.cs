@@ -5,6 +5,8 @@ namespace SF.Auth.WebUI.Models.Account
 {
     public class LoginViewModel
     {
+        #region Public Properties
+
         [Required(ErrorMessage = "Please enter your Email Address")]
         [DisplayName("Password")]
         public string Password { get; set; }
@@ -15,6 +17,10 @@ namespace SF.Auth.WebUI.Models.Account
         [DisplayName("Username")]
         public string Username { get; set; }
 
+        #endregion Public Properties
+
+        #region Public Constructors
+
         public LoginViewModel()
         {
         }
@@ -23,5 +29,7 @@ namespace SF.Auth.WebUI.Models.Account
         {
             ReturnUrl = returnUrl;
         }
+
+        #endregion Public Constructors
     }
 }

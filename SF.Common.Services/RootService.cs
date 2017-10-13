@@ -1,19 +1,25 @@
-﻿using SF.Common.Repositories.Interfaces;
+﻿using System;
+using SF.Common.Repositories.Interfaces;
 using SF.Common.Root;
 using SF.Common.Security;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Services.Exceptions;
 using SF.Common.Settings;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
 
 namespace SF.Common.Services
 {
     public class RootService : BaseService
     {
+        #region Protected Fields
+
         protected readonly IRootRepository _rootRepository;
 
         protected readonly ISettingRepository _settingRepository;
+
+        #endregion Protected Fields
+
+        #region Public Constructors
 
         public RootService(
             IRootRepository rootRepository,
@@ -22,6 +28,10 @@ namespace SF.Common.Services
             _rootRepository = rootRepository;
             _settingRepository = settingRepository;
         }
+
+        #endregion Public Constructors
+
+        #region Protected Methods
 
         protected string GetConnectionStringByEmail(string email)
         {
@@ -44,6 +54,10 @@ namespace SF.Common.Services
 
             return connectionString;
         }
+
+        #endregion Protected Methods
+
+        #region Private Methods
 
         private static void ValidateConnection(RootConnection connection)
         {
@@ -82,5 +96,7 @@ namespace SF.Common.Services
 
             return connectionString;
         }
+
+        #endregion Private Methods
     }
 }

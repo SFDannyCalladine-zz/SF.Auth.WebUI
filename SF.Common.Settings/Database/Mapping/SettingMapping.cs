@@ -6,6 +6,8 @@ namespace SF.Common.Settings.Database.Mapping
 {
     public class SettingMapping : IEntityTypeConfiguration<Setting>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<Setting> builder)
         {
             builder.ToTable("Setting", "dbo");
@@ -28,5 +30,7 @@ namespace SF.Common.Settings.Database.Mapping
                 .HasMaxLength(255)
                 .IsRequired();
         }
+
+        #endregion Public Methods
     }
 }

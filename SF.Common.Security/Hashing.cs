@@ -5,12 +5,18 @@ namespace SF.Common.Security
 {
     public static class Hashing
     {
+        #region Private Fields
+
         private const int HASH_BYTE_SIZE = 32;
         private const int ITERATION_INDEX = 0;
         private const int PBKDF2_INDEX = 2;
         private const int PBKDF2_ITERATIONS = 1000;
         private const int SALT_BYTE_SIZE = 32;
         private const int SALT_INDEX = 1;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         public static string Hash(string stringToHash)
         {
@@ -50,6 +56,10 @@ namespace SF.Common.Security
             return SlowEquals(hash, testHash);
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private static byte[] PBKDF2(string plainString, byte[] salt, int iterations, int outputBytes)
         {
             var pbkdf2 = new Rfc2898DeriveBytes(plainString, salt)
@@ -71,5 +81,7 @@ namespace SF.Common.Security
 
             return diff == 0;
         }
+
+        #endregion Private Methods
     }
 }

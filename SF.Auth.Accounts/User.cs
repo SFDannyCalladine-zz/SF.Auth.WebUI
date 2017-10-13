@@ -1,13 +1,15 @@
-﻿using SF.Common.Domain.Exceptions;
-using SF.Common.Security;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SF.Common.Domain.Exceptions;
+using SF.Common.Security;
 
 namespace SF.Auth.Accounts
 {
     public class User
     {
+        #region Public Properties
+
         public string Email { get; private set; }
 
         public virtual IList<ForgottenPassword> ForgottenPasswords { get; private set; }
@@ -19,6 +21,10 @@ namespace SF.Auth.Accounts
         public Guid UserGuid { get; private set; }
 
         public int UserId { get; private set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public User(
             Guid userGuid,
@@ -48,11 +54,19 @@ namespace SF.Auth.Accounts
             Password = Hashing.Hash(password);
         }
 
+        #endregion Public Constructors
+
+        #region Protected Constructors
+
         protected User()
         {
             UserId = 0;
             ForgottenPasswords = new List<ForgottenPassword>();
         }
+
+        #endregion Protected Constructors
+
+        #region Public Methods
 
         public void AddPasswordResetRequest(
             ForgottenPassword passwordResetRequest,
@@ -119,6 +133,10 @@ namespace SF.Auth.Accounts
             return Hashing.Validate(passwordToValidate, Password);
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private ForgottenPassword FindPasswordResetRequest(Guid key)
         {
             return ForgottenPasswords.FirstOrDefault(x => x.Key == key);
@@ -133,5 +151,7 @@ namespace SF.Auth.Accounts
 
             Password = Hashing.Hash(newPassword);
         }
+
+        #endregion Private Methods
     }
 }

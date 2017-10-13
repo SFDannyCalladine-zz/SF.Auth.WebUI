@@ -2,7 +2,13 @@
 {
     public class LogoutViewModel
     {
+        #region Public Properties
+
         public string LogoutId { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public LogoutViewModel()
         {
@@ -12,5 +18,7 @@
         {
             LogoutId = logoutId;
         }
+
+        #endregion Public Constructors
     }
 }

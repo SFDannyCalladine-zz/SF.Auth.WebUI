@@ -6,6 +6,8 @@ namespace SF.Common.DataAccess.Mappings
 {
     public class RootConnectionMapping : IEntityTypeConfiguration<RootConnection>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<RootConnection> builder)
         {
             builder.ToTable("Connection");
@@ -25,5 +27,7 @@ namespace SF.Common.DataAccess.Mappings
                 .WithOne(x => x.Connection)
                 .HasForeignKey<RootAccount>(x => x.ConnectionGuid);
         }
+
+        #endregion Public Methods
     }
 }

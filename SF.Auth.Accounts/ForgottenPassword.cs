@@ -1,10 +1,12 @@
-﻿using SF.Common.Domain.Exceptions;
-using System;
+﻿using System;
+using SF.Common.Domain.Exceptions;
 
 namespace SF.Auth.Accounts
 {
     public class ForgottenPassword
     {
+        #region Public Properties
+
         public DateTime Created { get; private set; }
 
         public Guid Key { get; private set; }
@@ -13,6 +15,10 @@ namespace SF.Auth.Accounts
 
         public int UserId { get; private set; }
 
+        #endregion Public Properties
+
+        #region Public Constructors
+
         public ForgottenPassword(Guid key)
         {
             Key = key;
@@ -20,6 +26,10 @@ namespace SF.Auth.Accounts
             Used = false;
             UserId = 0;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public void Deactivate()
         {
@@ -65,5 +75,7 @@ namespace SF.Auth.Accounts
 
             Used = true;
         }
+
+        #endregion Public Methods
     }
 }

@@ -1,4 +1,5 @@
-﻿using SF.Auth.Accounts;
+﻿using System;
+using SF.Auth.Accounts;
 using SF.Auth.DataTransferObjects.Account;
 using SF.Auth.Repositories;
 using SF.Auth.Repositories.Interfaces;
@@ -11,15 +12,20 @@ using SF.Common.Services;
 using SF.Common.Services.Exceptions;
 using SF.Common.Settings;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
 
 namespace SF.Auth.Services
 {
     public class UserService : RootService, IUserService
     {
+        #region Private Fields
+
         private readonly IDbCustomerDatabaseFactory _customerContextFactory;
 
         private IUserRepository _userRepository;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public UserService(
             IRootRepository rootRepository,
@@ -31,6 +37,10 @@ namespace SF.Auth.Services
         {
             _customerContextFactory = customerContextFactory;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public Response<bool> IsValidKey(IsValidKeyRequest request)
         {
@@ -122,6 +132,10 @@ namespace SF.Auth.Services
             }
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private void SetUserRepositoryByEmail(string emailAddress)
         {
             var connectionString = GetConnectionStringByEmail(emailAddress);
@@ -135,5 +149,7 @@ namespace SF.Auth.Services
 
             _userRepository = new UserRepository(_customerContextFactory.CreateDbContext(connectionString));
         }
+
+        #endregion Private Methods
     }
 }

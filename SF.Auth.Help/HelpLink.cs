@@ -4,6 +4,8 @@ namespace SF.Common.Help
 {
     public class HelpLink
     {
+        #region Public Properties
+
         public byte HelpLinkId { get; private set; }
 
         public string LinkText { get; private set; }
@@ -11,6 +13,10 @@ namespace SF.Common.Help
         public byte Order { get; private set; }
 
         public string Url { get; private set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public HelpLink(
             string url,
@@ -33,9 +39,15 @@ namespace SF.Common.Help
             Order = order;
         }
 
+        #endregion Public Constructors
+
+        #region Private Constructors
+
         private HelpLink()
         {
             HelpLinkId = 0;
         }
+
+        #endregion Private Constructors
     }
 }

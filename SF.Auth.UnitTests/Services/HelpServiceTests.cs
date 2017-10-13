@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using SF.Auth.DataTransferObjects.Help;
@@ -6,19 +9,22 @@ using SF.Auth.Repositories.Interfaces;
 using SF.Auth.Services;
 using SF.Common.Help;
 using SF.Common.ServiceModels.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SF.Auth.UnitTests.Services
 {
     [TestFixture]
     public class HelpServiceTests
     {
+        #region Private Fields
+
         private Mock<IHelpRepository> _helpRepoMock;
 
         private HelpService _helpService;
         private Mock<IMapper> _mapperMock;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [Test]
         public void GetAllLinksExceptionTest()
@@ -127,5 +133,7 @@ namespace SF.Auth.UnitTests.Services
                 _helpRepoMock.Object,
                 _mapperMock.Object);
         }
+
+        #endregion Public Methods
     }
 }

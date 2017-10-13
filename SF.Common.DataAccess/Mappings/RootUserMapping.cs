@@ -6,6 +6,8 @@ namespace SF.Common.DataAccess.Mappings
 {
     public class RootUserMapping : IEntityTypeConfiguration<RootUser>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<RootUser> builder)
         {
             builder.ToTable("User");
@@ -27,5 +29,7 @@ namespace SF.Common.DataAccess.Mappings
                 .HasColumnType(DatabaseType.UID)
                 .IsRequired();
         }
+
+        #endregion Public Methods
     }
 }

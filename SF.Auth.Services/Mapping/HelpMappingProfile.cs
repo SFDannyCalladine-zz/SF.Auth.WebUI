@@ -6,6 +6,8 @@ namespace SF.Auth.Services.Mapping
 {
     internal class HelpMappingProfile : Profile
     {
+        #region Public Constructors
+
         public HelpMappingProfile()
             : base()
         {
@@ -14,5 +16,7 @@ namespace SF.Auth.Services.Mapping
                 .ForMember(d => d.LinkText, s => s.MapFrom(x => x.LinkText))
                 .ForMember(d => d.Order, s => s.MapFrom(x => x.Order));
         }
+
+        #endregion Public Constructors
     }
 }

@@ -6,6 +6,10 @@ namespace SF.Auth.Services.Interfaces
 {
     public interface IAuthService
     {
+        #region Public Methods
+
         Response<UserDto> ValidateUser(ValidateUserRequest request);
+
+        #endregion Public Methods
     }
 }

@@ -6,18 +6,36 @@ namespace SF.Auth.DataAccess
 {
     public class dbCustomerDatabase : DbContext
     {
+        #region Public Properties
+
         public virtual DbSet<User> Users { get; set; }
 
+        #endregion Public Properties
+
+        #region Private Fields
+
         private readonly string _connectionString;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public dbCustomerDatabase(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        #endregion Public Constructors
+
+        #region Protected Constructors
+
         protected dbCustomerDatabase()
         {
         }
+
+        #endregion Protected Constructors
+
+        #region Protected Methods
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,5 +51,7 @@ namespace SF.Auth.DataAccess
 
             base.OnModelCreating(builder);
         }
+
+        #endregion Protected Methods
     }
 }

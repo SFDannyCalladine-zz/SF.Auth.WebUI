@@ -7,6 +7,8 @@ namespace SF.Auth.DataAccess.Mappings.Account
 {
     public class ForgottenPasswordMapping : IEntityTypeConfiguration<ForgottenPassword>
     {
+        #region Public Methods
+
         public void Configure(EntityTypeBuilder<ForgottenPassword> builder)
         {
             builder.ToTable("ForgottenPassword");
@@ -33,5 +35,7 @@ namespace SF.Auth.DataAccess.Mappings.Account
                 .HasColumnType(DatabaseType.DateTime)
                 .IsRequired();
         }
+
+        #endregion Public Methods
     }
 }

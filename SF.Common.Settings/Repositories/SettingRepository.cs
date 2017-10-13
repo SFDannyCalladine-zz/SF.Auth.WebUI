@@ -1,15 +1,21 @@
-﻿using SF.Auth.Repositories.Cache;
+﻿using System;
+using System.Linq;
+using SF.Auth.Repositories.Cache;
 using SF.Common.Repositories.Cache.Interfaces;
 using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
-using System.Linq;
 
 namespace SF.Common.Settings.Repositories
 {
     public class SettingRepository : CacheRepository, ISettingRepository
     {
+        #region Private Fields
+
         private readonly dbSetting _context;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public SettingRepository
             (dbSetting context,
@@ -18,6 +24,10 @@ namespace SF.Common.Settings.Repositories
         {
             _context = context;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public int FindSettingAsInt(string settingName)
         {
@@ -28,6 +38,10 @@ namespace SF.Common.Settings.Repositories
         {
             return FindSetting(settingName).Value;
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private Setting FindSetting(string settingName)
         {
@@ -49,5 +63,7 @@ namespace SF.Common.Settings.Repositories
 
             return setting;
         }
+
+        #endregion Private Methods
     }
 }

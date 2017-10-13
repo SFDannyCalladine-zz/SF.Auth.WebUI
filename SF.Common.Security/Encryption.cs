@@ -5,7 +5,13 @@ namespace SF.Common.Security
 {
     public class Encryption
     {
+        #region Private Fields
+
         private readonly AESEncryption _AESEncryption;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public Encryption(
             string encryptionKey,
@@ -35,6 +41,10 @@ namespace SF.Common.Security
                 encryptionSalt);
         }
 
+        #endregion Public Constructors
+
+        #region Public Methods
+
         public string DecryptString(string stringToDecrypt)
         {
             if (string.IsNullOrWhiteSpace(stringToDecrypt))
@@ -54,5 +64,7 @@ namespace SF.Common.Security
 
             return _AESEncryption.Encrypt(stringToEncrypt);
         }
+
+        #endregion Public Methods
     }
 }

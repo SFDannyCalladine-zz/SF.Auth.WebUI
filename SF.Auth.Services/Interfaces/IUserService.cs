@@ -6,10 +6,14 @@ namespace SF.Auth.Services.Interfaces
 {
     public interface IUserService
     {
+        #region Public Methods
+
         Response<bool> IsValidKey(IsValidKeyRequest request);
 
         Response<RequestPasswordResetDto> RequestPasswordReset(RequestPasswordResetRequest request);
 
         Response ResetPassword(ResetPasswordRequest request);
+
+        #endregion Public Methods
     }
 }

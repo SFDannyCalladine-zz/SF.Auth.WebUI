@@ -1,17 +1,23 @@
-﻿using SF.Auth.DataAccess;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SF.Auth.DataAccess;
 using SF.Auth.Repositories.Cache;
 using SF.Auth.Repositories.Interfaces;
 using SF.Common.Help;
 using SF.Common.Repositories.Cache.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SF.Auth.Repositories
 {
     public class HelpRepository : CacheRepository, IHelpRepository
     {
+        #region Private Fields
+
         private const string HelpLinkKey = "HelpLinks";
         private readonly dbHelp _context;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public HelpRepository(
             dbHelp context,
@@ -20,6 +26,10 @@ namespace SF.Auth.Repositories
         {
             _context = context;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public IList<HelpLink> GetAllLinks()
         {
@@ -39,5 +49,7 @@ namespace SF.Auth.Repositories
 
             return links;
         }
+
+        #endregion Public Methods
     }
 }

@@ -5,6 +5,8 @@ namespace SF.Auth.WebUI.Data.Migrations.Help
 {
     public partial class InitialMigration : Migration
     {
+        #region Protected Methods
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -28,5 +30,7 @@ namespace SF.Auth.WebUI.Data.Migrations.Help
                     table.PrimaryKey("PK_HelpLinks", x => x.HelpLinkID);
                 });
         }
+
+        #endregion Protected Methods
     }
 }

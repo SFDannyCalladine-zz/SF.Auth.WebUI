@@ -1,11 +1,17 @@
-﻿using SF.Common.Services;
-using System;
+﻿using System;
+using SF.Common.Services;
 
 namespace SF.Auth.Services.Request
 {
     public class IsValidKeyRequest : BaseRequest
     {
+        #region Public Properties
+
         public Guid Key { get; private set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public IsValidKeyRequest(
             Guid key,
@@ -14,5 +20,7 @@ namespace SF.Auth.Services.Request
         {
             Key = key;
         }
+
+        #endregion Public Constructors
     }
 }

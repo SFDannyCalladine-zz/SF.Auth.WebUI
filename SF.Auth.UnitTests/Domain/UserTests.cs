@@ -1,18 +1,24 @@
-﻿using NUnit.Framework;
-using SF.Auth.Accounts;
-using SF.Common.Domain.Exceptions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
+using NUnit.Framework;
+using SF.Auth.Accounts;
+using SF.Common.Domain.Exceptions;
 
 namespace SF.Auth.UnitTests.Domain
 {
     [TestFixture]
     public class UserTests
     {
+        #region Private Fields
+
         private const string ForgottenPasswordGuid = "d95eb2f3-d9fb-4143-b046-f9cc34491f65";
         private ForgottenPassword _forgottenPassword;
         private User _user;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [Test]
         public void AddPasswordRequestDomainValidationExceptionDeactivatedTest()
@@ -303,5 +309,7 @@ namespace SF.Auth.UnitTests.Domain
 
             Assert.AreEqual(expectedResult, result);
         }
+
+        #endregion Public Methods
     }
 }

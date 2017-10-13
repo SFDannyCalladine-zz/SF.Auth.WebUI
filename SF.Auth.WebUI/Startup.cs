@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,18 +21,27 @@ using SF.Common.Repositories.Interfaces;
 using SF.Common.Settings.Database;
 using SF.Common.Settings.Repositories;
 using SF.Common.Settings.Repositories.Interfaces;
-using System.Reflection;
 
 namespace SF.Auth.WebUI
 {
     public class Startup
     {
+        #region Public Properties
+
         public IConfiguration Configuration { get; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -72,6 +82,10 @@ namespace SF.Auth.WebUI
                 Configuration,
                 migrationsAssembly);
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private static void AddDbContexts(
             IServiceCollection services,
@@ -138,5 +152,7 @@ namespace SF.Auth.WebUI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IHelpService, HelpService>();
         }
+
+        #endregion Private Methods
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using SF.Auth.Accounts;
@@ -12,15 +15,14 @@ using SF.Common.Security;
 using SF.Common.ServiceModels.Response;
 using SF.Common.Settings;
 using SF.Common.Settings.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SF.Auth.UnitTests.Services
 {
     [TestFixture]
     public class UserServiceTests
     {
+        #region Private Fields
+
         private const string ForgottenPasswordGuid = "d95eb2f3-d9fb-4143-b046-f9cc34491f65";
         private const string Key = "2013.mcw.24ge2$ed[@dysSD62Lpww#$";
         private const string Salt = "2013.mcw.suhg$^s68#7IUHd98$uw09i";
@@ -36,6 +38,10 @@ namespace SF.Auth.UnitTests.Services
         private Mock<ISettingRepository> _settingRepoMock;
         private Mock<DbSet<User>> _userDbSetMock;
         private UserService _userService;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [Test]
         public void IsValidKeyRepositoryExceptionTest()
@@ -440,5 +446,7 @@ namespace SF.Auth.UnitTests.Services
 
             _connection = new RootConnection(guid, connectionString);
         }
+
+        #endregion Public Methods
     }
 }

@@ -1,19 +1,29 @@
-﻿using SF.Auth.Accounts;
+﻿using System;
+using System.Linq;
+using SF.Auth.Accounts;
 using SF.Auth.DataAccess;
 using SF.Auth.Repositories.Interfaces;
-using System;
-using System.Linq;
 
 namespace SF.Auth.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        #region Private Fields
+
         private readonly dbCustomerDatabase _context;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public UserRepository(dbCustomerDatabase context)
         {
             _context = context;
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public void Dispose()
         {
@@ -40,6 +50,10 @@ namespace SF.Auth.Repositories
             _context.SaveChanges();
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private void Dispose(bool disposing)
         {
             if (disposing)
@@ -47,5 +61,7 @@ namespace SF.Auth.Repositories
                 _context.Dispose();
             }
         }
+
+        #endregion Private Methods
     }
 }
