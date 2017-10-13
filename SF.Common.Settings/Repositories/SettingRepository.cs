@@ -58,7 +58,7 @@ namespace SF.Common.Settings.Repositories
                     throw new Exception("Setting can not be found");
                 }
 
-                Cache.Store(setting.Name, setting.Value);
+                Cache.Store(setting.Name, setting);
             }
 
             return setting;
